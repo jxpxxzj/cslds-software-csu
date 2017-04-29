@@ -1,6 +1,10 @@
-# XueFu
-中南大学软件学院 学业服务与发展中心官网 代码仓库  
-![travis](https://travis-ci.com/jxpxxzj/xuefu.svg?token=3ZQb5ozqZ6tKkaf5fHTD&branch=master)
+# cslds-software-csu
+中南大学软件学院 学业服务与发展中心 代码仓库  
+
+
+[![Build Status](https://travis-ci.org/jxpxxzj/cslds-software-csu.svg?branch=master)](https://travis-ci.org/jxpxxzj/cslds-software-csu)
+[![Code Climate](https://codeclimate.com/github/jxpxxzj/cslds-software-csu/badges/gpa.svg)](https://codeclimate.com/github/jxpxxzj/cslds-software-csu)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jxpxxzj/cslds-software-csu/master/LICENSE)
 
 ## 构建说明
 ### 修改代码

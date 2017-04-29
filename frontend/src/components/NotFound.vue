@@ -82,7 +82,7 @@ export default {
             this.time(this.$refs.againbtn);
         },
         onMail() {
-            document.location.href = 'mailto:28256042@qq.com';
+            window.open('https://github.com/jxpxxzj/cslds-software-csu', '_blank');
         },
         onReturn() {
             this.$router.push('/');
