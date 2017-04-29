@@ -118,7 +118,7 @@
                     <a target="_blank" href="http://www.csu.edu.cn">中南大学</a>&nbsp;|
                     <a target="_blank" href="http://software.csu.edu.cn">软件学院</a>&nbsp;|
                     <router-link :to="{path: '/admin'}">管理员入口</router-link>&nbsp;|
-                    <a target="_blank" href="https://github.com/jxpxxzj/xuefu">关于</a>
+                    <a target="_blank" href="https://github.com/jxpxxzj/cslds-software-csu">关于</a>
                 </p>
                 <p class="footer-rel">© 2017 Center for Student Learning Development and Service by School of Software, Central South University , All rights reserved.</p>
             </el-row>
