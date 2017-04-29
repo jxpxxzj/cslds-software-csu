@@ -2,6 +2,7 @@
 中南大学软件学院 学业服务与发展中心 代码仓库  
 
 [![Build Status](https://travis-ci.org/jxpxxzj/cslds-software-csu.svg?branch=master)](https://travis-ci.org/jxpxxzj/cslds-software-csu)
+[![Build status](https://ci.appveyor.com/api/projects/status/wx640hsuqfn8i6k8?svg=true)](https://ci.appveyor.com/project/jxpxxzj/cslds-software-csu)
 [![Code Climate](https://codeclimate.com/github/jxpxxzj/cslds-software-csu/badges/gpa.svg)](https://codeclimate.com/github/jxpxxzj/cslds-software-csu)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jxpxxzj/cslds-software-csu/master/LICENSE)
 
@@ -19,7 +20,7 @@ Vue.prototype.$axios = axios.create({
 在 `/frontend/config/index.js` 中配置了开发环境下的路由表和 URL 重写.
 
 #### 配置数据库
-打开 `/backend/conf/config.example.js`, 复制一份为 `config.js`, 并修改以下代码:
+1. 打开 `/backend/conf/config.example.js`, 复制一份为 `config.js`, 并修改以下代码:
 ```js
 server: {
     port: '3000' // 监听端口
@@ -32,6 +33,7 @@ mysql: {
     port: 3306 // 数据库端口
 }
 ```
+2. 在数据库中执行 `/backend/database.sql`.
 
 ### 构建前端
 #### 安装依赖
