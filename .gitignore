@@ -1,0 +1,14 @@
+node_modules/
+.vscode
+.DS_Store
+frontend/dist/
+backend/public/
+*.log
+npm-debug.log*
+jspm_packages/
+.npm/
+.node_repl_history/
+yarn-error.log
+backend/conf/config.js
+
+

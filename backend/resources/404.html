@@ -1,0 +1,128 @@
+<html>
+    <title>提示</title>
+</html>
+<style>
+    .content {
+        position: relative;
+        display: block;
+        max-width: 1110px;
+        width: auto;
+        padding-top: 5.125em;
+        margin: 0 auto;
+        font-size: 13px;
+        clear: both;
+        overflow: hidden
+    }
+
+    .search {
+        width: 96%;
+        min-height: 350px;
+        background: #fff;
+        padding: 18px 2%;
+        color: #414141;
+        overflow: hidden;
+        clear: both
+    }
+
+    .tabs {
+        position: relative;
+        width: 100%;
+        border-bottom: solid 1px #20a0ff;
+        margin: 0 0 1.4em 0;
+        overflow: hidden;
+        height: 43px
+    }
+
+    .tabs a {
+        display: block;
+        color: #20a0ff;
+        font-size: 16px
+    }
+
+    a {
+        text-decoration: none;
+        outline: 0
+    }
+
+    input[type="button"] {
+        -webkit-appearance: none;
+        outline: 0;
+        border: 0;
+        float: none;
+        margin-right: 10px
+    }
+
+    .gray_btn,.gray_btn:hover {
+        width: auto;
+        padding: 0 24px;
+        margin-top: 39px;
+        font-size: 16px;
+        text-decoration: none;
+        display: inline-block;
+        height: 38px;
+        background: #20a0ff;
+        color: #fff;
+        border-radius: 3px;
+        cursor: pointer
+    }
+
+    .gray_btn:hover {
+        background: #58b7ff
+    }
+
+    .no_gray_btn {
+        background: #eef1f6;
+        color: #bfcbd9;
+        border: 1px solid #bfcbd9 !important;
+    }
+
+    .no_gray_btn:hover {
+        background: #eef1f6;
+        color: #bfcbd9;
+        cursor: not-allowed;
+        text-decoration: none
+    }
+</style>
+<body>
+    <div class="content">
+        <div class="search">
+            <div class="tabs">
+                <a>提示</a>
+            </div>
+            <div>
+                <p>从前有座山，山里有座庙，庙里有个页面，现在找不到...</p>
+                <input type="button" id="againbtn" class="gray_btn" readonly="" value="点一次，扣程序员一块钱">
+                <input type="button" id="mailbtn" class="gray_btn" readonly="" value="跟老板告状">
+                <input type="button" id="returnbtn" class="gray_btn" readonly="" value="返回首页">
+            </div>
+        </div>
+    </div>
+    <script>
+        var wait = 60;
+        function time(a) {
+            if (wait == 0) {
+                a.removeAttribute("disabled");
+                document.getElementById("againbtn").className = "gray_btn";
+                a.value = "再扣一次";
+                wait = 60;
+            } else {
+                a.setAttribute("disabled", true);
+                document.getElementById("againbtn").className = "gray_btn no_gray_btn";
+                a.value = "再扣一次(" + wait + ")";
+                wait--;
+                setTimeout(function() {
+                    time(a)
+                }, 1000);
+            }
+        }
+        document.getElementById("againbtn").onclick = function() {
+            time(this)
+        };
+        document.getElementById("mailbtn").onclick = function() {
+            document.location.href = "mailto:28256042@qq.com"
+        };
+        document.getElementById("returnbtn").onclick = function() {
+            document.location.href = "/";
+        };
+    </script>
+</body>
