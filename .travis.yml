@@ -3,6 +3,7 @@ node_js:
   - "node"
 before_install:
   - cd frontend
+  - npm cache clean
 install:
   - npm install
 script:
