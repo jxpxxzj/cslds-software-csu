@@ -94,5 +94,6 @@ CREATE TABLE `teacher` (
   `class` text,
   `phone` text,
   `subject` text,
+  `achievement` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8;

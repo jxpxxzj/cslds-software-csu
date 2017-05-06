@@ -7,7 +7,6 @@ import axios from 'axios';
 import jsCookie from 'js-cookie';
 import Vuex from 'vuex';
 import Vue from 'vue';
-import Carousel3d from 'vue-carousel-3d';
 import VueLazyload from 'vue-lazyload';
 import App from './App';
 import router from './router';
@@ -23,7 +22,6 @@ window.cookie = jsCookie;
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(Vuex);
-Vue.use(Carousel3d);
 Vue.use(VueLazyload, {
     preLoad: 1.3,
     attempt: 1,
