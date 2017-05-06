@@ -1,0 +1,22 @@
+{
+  "name": "cslds-software-csu",
+  "version": "1.0.0",
+  "description": "Center for Student Learning Development and Service by School of Software, Central South University",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jxpxxzj/cslds-software-csu"
+  },
+  "keywords": [
+    "central-south-university",
+    "vue",
+    "express",
+    "school-of-software",
+    "mysql"
+  ],
+  "author": "Zijin Xiao <28256042@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jxpxxzj/cslds-software-csu/issues"
+  },
+  "homepage": "https://github.com/jxpxxzj/cslds-software-csu#readme"
+}
