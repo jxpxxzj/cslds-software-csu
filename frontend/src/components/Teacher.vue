@@ -2,17 +2,16 @@
     <div class="container">
         <el-row :gutter="20">
             <el-col :span="4">
-                <el-menu mode="vertical" default-active="朋辈导师" @select="onSelect">
+                <el-menu mode="vertical" default-active="专业导师" @select="onSelect">
+                    <el-menu-item index="专业导师">专业导师</el-menu-item>
+                    <el-menu-item index="成长导师">成长导师</el-menu-item>
                     <el-menu-item-group title="学生导师">
                         <el-menu-item index="朋辈导师">朋辈导师</el-menu-item>
                         <el-menu-item index="党员导师">党员导师</el-menu-item>
-                    </el-menu-item-group>
-                    <el-menu-item-group title="教师导师">
-                        <el-menu-item index="专业导师">专业导师</el-menu-item>
-                        <el-menu-item index="成长导师">成长导师</el-menu-item>
-                    </el-menu-item-group>
+                    </el-menu-item-group>    
                 </el-menu>
-                 
+                <el-row>&nbsp;</el-row>
+                <el-button type="primary" style="width: 100%" @click="onlineVisible = true">在线咨询</el-button>
             </el-col>
             <el-col :span="20">
                 <el-row style="padding-bottom:20px">
@@ -45,12 +44,21 @@
                                 </el-col>
                             </el-row>
                             <el-row>&nbsp;</el-row>
-                            <el-row v-if="current.subject !== null">
+                            <el-row v-if="current.phone !== null">
                                 <el-col :span="6">
                                     联系电话
                                 </el-col>
                                 <el-col :span="18">
                                     {{ current.phone }}
+                                </el-col>
+                            </el-row>
+                            <el-row>&nbsp;</el-row>
+                            <el-row v-if="current.achievement !== null">
+                                <el-col :span="6">
+                                    工作成就
+                                </el-col>
+                                <el-col :span="18">
+                                    {{ current.achievement }}
                                 </el-col>
                             </el-row>
                         </el-col>
@@ -68,7 +76,7 @@
                             </el-col>
                         </el-row>
                         <el-row>&nbsp;</el-row>
-                        <el-row v-if="current.subject !== null">
+                        <el-row v-if="current.phone !== null">
                             <el-col :span="6">
                                 联系电话
                             </el-col>
@@ -76,10 +84,24 @@
                                 {{ current.phone }}
                             </el-col>
                         </el-row>
+                        <el-row>&nbsp;</el-row>
+                        <el-row v-if="current.achievement !== null">
+                            <el-col :span="6">
+                                工作成就
+                            </el-col>
+                            <el-col :span="18">
+                                {{ current.achievement }}
+                            </el-col>
+                        </el-row>
                     </div>
                 </el-row>
             </el-col>
         </el-row>
+        <el-dialog title="在线咨询" v-model="onlineVisible">
+            <p>
+                Some content here.
+            </p>
+        </el-dialog>
     </div>
 </template>
 <style scoped>
@@ -99,10 +121,11 @@ export default {
     data() {
         return {
             teacher: [],
-            currentType: '朋辈导师',
+            currentType: '专业导师',
             current: {
 
-            }
+            },
+            onlineVisible: false
         };
     },
     created() {

@@ -1,6 +1,6 @@
 const $sql = {
-    add: 'insert into teacher (name,intro,image,type,class,phone,subject) values (?,?,?)',
-    update: 'update teacher set `name`=?, intro=?, image=?,type=?,class=?,phone=?,subject=? where id=?',
+    add: 'insert into teacher (name,intro,image,type,class,phone,subject,achievement) values (?,?,?,?,?,?,?,?)',
+    update: 'update teacher set `name`=?, intro=?, image=?,type=?,class=?,phone=?,subject=?,achievement=? where id=?',
     list: 'select * from teacher',
     delete: 'delete from teacher where id=?',
     getByType: 'select * from teacher where type=?'
@@ -20,7 +20,7 @@ module.exports = {
         }
         pool.getConnection((err, connection) => {
             const body = req.body;
-            connection.query($sql.add, [body.name, body.intro, body.image, body.type, body.class, body.phone, body.subject], (err, result) => {
+            connection.query($sql.add, [body.name, body.intro, body.image, body.type, body.class, body.phone, body.subject, body.achievement], (err, result) => {
                 if (result) {
                     result = $util.success;
                 }
@@ -36,7 +36,7 @@ module.exports = {
         }
         pool.getConnection((err, connection) => {
             const body = req.body;
-            connection.query($sql.update, [body.name, body.intro, body.image, body.type, body.class, body.phone, body.subject, body.id], (err, result) => {
+            connection.query($sql.update, [body.name, body.intro, body.image, body.type, body.class, body.phone, body.subject, body.achievement, body.id], (err, result) => {
                 if (result) {
                     result = $util.success;
                 }

@@ -12,10 +12,9 @@
             <el-form :model="apply"  ref="applyForm">
                 <el-form-item label="申请类型" prop="type" :rules="[{ required: true, message: '类型不能为空'}]">
                     <el-select v-model="apply.type" placeholder="请选择申请类型" >
-                        <el-option label="辅导室使用申请" value="辅导室使用申请"></el-option>
-                        <el-option label="个人自习申请" value="个人自习申请"></el-option>
-                        <el-option label="个人一对一辅导申请" value="个人一对一申请"></el-option>
-                        <el-option label="课程辅导申请" value="课程辅导申请"></el-option>
+                        <el-tooltip v-for="obj in typeList" :key="obj.name" :content="obj.description" placement="right">
+                            <el-option :label="obj.name" :value="obj.name"></el-option>
+                        </el-tooltip>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="申请描述">
@@ -42,6 +41,24 @@ export default {
                 type: '',
                 detail: ''
             },
+            typeList: [
+                {
+                    name: '辅导室使用申请',
+                    description: 'test1'
+                }, {
+                    name: '个人自习申请',
+                    description: 'test2'
+                }, {
+                    name: '个人一对一辅导申请',
+                    description: 'test3'
+                }, {
+                    name: '课程辅导申请',
+                    description: 'test4'
+                }, {
+                    name: '发展辅导申请',
+                    description: 'test5'
+                }
+            ],
             applyFormVisible: false
         };
     },

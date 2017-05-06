@@ -36,7 +36,7 @@
                             </el-form-item>
                         </el-form>
                     </el-tab-pane>
-                    <el-tab-pane label="活动风采">
+                    <el-tab-pane label="活动通告">
                         <el-button type="primary" @click="onActivityAddClick">添加</el-button>
                         <el-row>&nbsp;</el-row>
                         <el-table stripe border :data="activity" style="width: 100%">
@@ -59,7 +59,7 @@
                             </el-table-column>
                         </el-table>
                     </el-tab-pane>
-                    <el-tab-pane label="课程通知">
+                    <el-tab-pane label="学业发展辅导通知">
                         <el-button type="primary" @click="onCourseAddClick">添加</el-button>
                         <el-row>&nbsp;</el-row>
                         <el-table stripe border :data="course" style="width: 100%">
@@ -165,6 +165,9 @@
                                         </el-form-item>
                                         <el-form-item label="辅导科目">
                                             <span>{{ props.row.subject }}</span>
+                                        </el-form-item>  
+                                        <el-form-item label="工作成就">
+                                            <span>{{ props.row.achievement }}</span>
                                         </el-form-item>                                              
                                     </el-form>
                                 </template>
@@ -283,6 +286,9 @@
                 <el-form-item label="辅导科目">
                     <el-input v-model="teacherForm.subject" auto-complete="off"></el-input>
                 </el-form-item>
+                <el-form-item label="工作成就">
+                    <el-input v-model="teacherForm.achievement" auto-complete="off"></el-input>
+                </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="onTeacherSubmit">提交</el-button>
@@ -363,7 +369,8 @@ export default {
                 type: '',
                 class: '',
                 phone: '',
-                subject: ''
+                subject: '',
+                achievement: ''
             },
             isLogin: false
         };

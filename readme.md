@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/jxpxxzj/cslds-software-csu.svg?branch=master)](https://travis-ci.org/jxpxxzj/cslds-software-csu)
 [![Build status](https://ci.appveyor.com/api/projects/status/wx640hsuqfn8i6k8?svg=true)](https://ci.appveyor.com/project/jxpxxzj/cslds-software-csu)
 [![Code Climate](https://codeclimate.com/github/jxpxxzj/cslds-software-csu/badges/gpa.svg)](https://codeclimate.com/github/jxpxxzj/cslds-software-csu)
+[![GitHub issues](https://img.shields.io/github/issues/jxpxxzj/cslds-software-csu.svg)](https://github.com/jxpxxzj/cslds-software-csu/issues)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jxpxxzj/cslds-software-csu/master/LICENSE)
 
 ## 构建说明

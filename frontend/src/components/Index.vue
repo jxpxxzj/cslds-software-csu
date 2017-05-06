@@ -17,7 +17,7 @@
                 <el-row>
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
-                            <span style="line-height: 36px;">辅导室</span>
+                            <span style="line-height: 36px;">自习室</span>
                         </div>
                         <div class="text item" v-for="obj in room" :key="obj.id">
                             {{ obj.place }} <el-tag style="float: right">{{ new Date(obj.time).toLocaleString() }}</el-tag> 
@@ -29,7 +29,7 @@
                 <el-row>
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
-                            <span style="line-height: 36px;">活动风采</span>
+                            <span style="line-height: 36px;">活动通告</span>
                         </div>
                         <div class="text item" v-for="obj in act" :key="obj.id">
                             <a :href="obj.address">{{ obj.title }}</a>  <el-tag style="float: right">{{ new Date(obj.date).toLocaleDateString() }}</el-tag> 
@@ -40,7 +40,7 @@
                 <el-row>
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
-                            <span style="line-height: 36px;">课程通知</span>
+                            <span style="line-height: 36px;">学业发展辅导通知</span>
                         </div>
                         <div class="text item" v-for="obj in cou" :key="obj.id">
                             {{ obj.course }} <el-tag type="primary">{{ obj.place }}</el-tag> <el-tag style="float: right">{{ new Date(obj.time).toLocaleString() }}</el-tag> 
