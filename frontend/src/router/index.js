@@ -7,34 +7,58 @@ import Material from '@/components/Material';
 import Teacher from '@/components/Teacher';
 import NotFound from '@/components/NotFound';
 
+// Admin
+import Introduction from '@/components/admin/Introduction';
+import Activity from '@/components/admin/Activity';
+import Course from '@/components/admin/Course';
+import Apply from '@/components/admin/Apply';
+import adminMaterial from '@/components/admin/Material';
+import CounselingRoom from '@/components/admin/CounselingRoom';
+import adminTeacher from '@/components/admin/Teacher';
+
 Vue.use(Router);
 
 export default new Router({
     mode: 'history',
-    routes: [
-        {
-            path: '/',
-            component: Index
-        },
-        {
-            path: '/application',
-            component: Application
-        },
-        {
-            path: '/admin',
-            component: Admin
-        },
-        {
-            path: '/material',
-            component: Material
-        },
-        {
-            path: '/teacher',
-            component: Teacher
-        },
-        {
-            path: '*',
-            component: NotFound
-        }
-    ]
+    routes: [{
+        path: '/',
+        component: Index
+    }, {
+        path: '/application',
+        component: Application
+    }, {
+        path: '/admin',
+        component: Admin,
+        children: [{
+            path: 'introduction',
+            component: Introduction
+        }, {
+            path: 'activity',
+            component: Activity
+        }, {
+            path: 'course',
+            component: Course
+        }, {
+            path: 'apply',
+            component: Apply
+        }, {
+            path: 'material',
+            component: adminMaterial
+        }, {
+            path: 'counselingRoom',
+            component: CounselingRoom
+        }, {
+            path: 'teacher',
+            component: adminTeacher
+        }]
+    }, {
+        path: '/material',
+        component: Material
+    }, {
+        path: '/teacher',
+        component: Teacher
+    }, {
+        path: '*',
+        component: NotFound
+    }]
 });
