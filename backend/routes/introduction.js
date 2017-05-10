@@ -3,16 +3,16 @@ const router = express.Router();
 
 const dao = require('../dao/introduction');
 
-router.get('/get', (req, res, next) => {
-    dao.get(req, res, next);
+router.get('/get', (req, res) => {
+    dao.get(req, res);
 });
 
-router.post('/add', (req, res, next) => {
-    dao.add(req, res, next);
+router.post('/add', (req, res) => {
+    dao.add(req, res);
 });
 
-router.post('/update', (req, res, next) => {
-    dao.update(req, res, next);
+router.post('/update', (req, res) => {
+    dao.update(req, res);
 });
 
 module.exports = router;

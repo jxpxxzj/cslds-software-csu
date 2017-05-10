@@ -62,6 +62,7 @@ export default {
             applyFormVisible: false
         };
     },
+    /*eslint-disable*/
     beforeCreate() {
         if (this.$store.state.user === {}) {
             this.$router.push({
@@ -77,6 +78,7 @@ export default {
         }
         this.fetchData();
     },
+    /*eslint-enable*/
     methods: {
         fetchData() {
             this.$axios.get('/application/getByPerson/' + this.$store.state.user.username)

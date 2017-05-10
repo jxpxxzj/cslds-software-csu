@@ -8,7 +8,7 @@ const $util = require('../util');
 const pool = mysql.createPool($conf.mysql);
 
 module.exports = {
-    login(req, res, next) {
+    login(req, res) {
         pool.getConnection((err, connection) => {
             const body = req.body;
             connection.query($sql.login, [body.account, body.password], (err, result) => {

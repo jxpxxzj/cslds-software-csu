@@ -15,16 +15,15 @@
         </el-row>
         <el-row v-if="isLogin">
             <el-row>
-                <el-button-group>
-                    <el-button v-for="obj in tabList" @click="onSwitch(obj.path)" :key="obj.path">{{ obj.name }}</el-button>
-                </el-button-group>
+                <el-radio-group v-model="current" @change="onSwitch">
+                    <el-radio-button v-for="obj in tabList" :label="obj.path">{{ obj.name }}</el-radio-button>
+                </el-radio-group>
                 <el-row>&nbsp;</el-row>
                 <keep-alive>
                     <router-view></router-view>
                 </keep-alive>
             </el-row>
         </el-row>
-    
     </div>
 </template>
 <script>
@@ -57,13 +56,14 @@ export default {
                 account: '',
                 password: ''
             },
-            isLogin: false
+            isLogin: false,
+            current: 'introduction'
         };
     },
     methods: {
-        onSwitch(name) {
+        onSwitch() {
             this.$router.push({
-                path: '/admin/' + name
+                path: '/admin/' + this.current
             });
         },
         onLoginClick() {
@@ -71,6 +71,7 @@ export default {
             .then((response) => {
                 if (response.data.code.toString() === '200') {
                     this.isLogin = true;
+                    this.onSwitch();
                 } else if (response.data.code.toString() === '401') {
                     this.$message({
                         type: 'error',

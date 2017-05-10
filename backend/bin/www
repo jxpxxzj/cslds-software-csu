@@ -7,6 +7,7 @@
 const app = require('../app');
 const debug = require('debug')('cslds:server');
 const http = require('http');
+const fs = require('fs');
 const config = require('../conf/config');
 
 /**
@@ -87,6 +88,10 @@ function onListening() {
     const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
+    fs.existsSync('./public') || fs.mkdirSync('./public');
+    fs.existsSync('./public/file') || fs.mkdirSync('./public/file');
+    fs.createReadStream('./resources/404.html').pipe(fs.createWriteStream('./public/404.html'));
+    fs.createReadStream('./resources/favicon.ico').pipe(fs.createWriteStream('./public/favicon.ico'));
     debug('Listening on ' + bind);
     console.log('> Listening at ' + bind + '...');
 }

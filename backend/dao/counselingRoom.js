@@ -12,7 +12,7 @@ const $util = require('../util');
 const pool = mysql.createPool($conf.mysql);
 
 module.exports = {
-    add(req, res, next) {
+    add(req, res) {
         if (!req.session.admin) {
             $util.jsonWrite(res, $util.unauthorized);
             return;
@@ -28,7 +28,7 @@ module.exports = {
             connection.release();
         });
     },
-    update(req, res, next) {
+    update(req, res) {
         if (!req.session.admin) {
             $util.jsonWrite(res, $util.unauthorized);
             return;
@@ -44,7 +44,7 @@ module.exports = {
             connection.release();
         });
     },
-    getByTime(req, res, next) {
+    getByTime(req, res) {
         pool.getConnection((err, connection) => {
             const time = req.params.time;
             connection.query($sql.getByTime, [time], (err, result) => {
@@ -53,7 +53,7 @@ module.exports = {
             connection.release();
         });
     },
-    getByPlace(req, res, next) {
+    getByPlace(req, res) {
         pool.getConnection((err, connection) => {
             const place = req.params.place;
             connection.query($sql.getByPlace, [place], (err, result) => {
@@ -62,7 +62,7 @@ module.exports = {
             connection.release();
         });
     },
-    list(req, res, next) {
+    list(req, res) {
         pool.getConnection((err, connection) => {
             connection.query($sql.list, (err, result) => {
                 $util.jsonWrite(res, result);

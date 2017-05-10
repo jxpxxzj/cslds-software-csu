@@ -125,7 +125,6 @@ module.exports = {
     "prefer-spread": "error",
     "require-yield": "error",
     "rest-spread-spacing": ["error", "never"],
-    "linebreak-style": ["error", "windows"],
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       'js': 'never',
