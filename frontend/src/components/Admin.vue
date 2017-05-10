@@ -16,7 +16,7 @@
         <el-row v-if="isLogin">
             <el-row>
                 <el-button-group>
-                    <el-button v-for="obj in tabList" :key="obj.path" @click="onSwitch(obj.path)>{{ obj.name }}</el-button>
+                    <el-button v-for="obj in tabList" @click="onSwitch(obj.path)" :key="obj.path">{{ obj.name }}</el-button>
                 </el-button-group>
                 <el-row>&nbsp;</el-row>
                 <keep-alive>
