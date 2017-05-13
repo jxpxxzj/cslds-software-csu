@@ -12,7 +12,8 @@
     "url":"https://github.com/jxpxxzj/cslds-software-csu/issues"
   },
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "lint": "eslint --ext .js ./"
   },
   "dependencies": {
     "body-parser": "~1.16.0",

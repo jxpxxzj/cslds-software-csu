@@ -3,24 +3,24 @@ const router = express.Router();
 
 const dao = require('../dao/activity');
 
-router.get('/list', (req, res, next) => {
-    dao.list(req, res, next);
+router.get('/list', (req, res) => {
+    dao.list(req, res);
 });
 
-router.get('/get/:id', (req, res, next) => {
-    dao.get(req, res, next);
+router.get('/get/:id', (req, res) => {
+    dao.get(req, res);
 });
 
-router.post('/add', (req, res, next) => {
-    dao.add(req, res, next);
+router.post('/add', (req, res) => {
+    dao.add(req, res);
 });
 
-router.post('/update', (req, res, next) => {
-    dao.update(req, res, next);
+router.post('/update', (req, res) => {
+    dao.update(req, res);
 });
 
-router.get('/delete/:id', (req, res, next) => {
-    dao.delete(req, res, next);
+router.get('/delete/:id', (req, res) => {
+    dao.delete(req, res);
 });
 
 module.exports = router;

@@ -14,7 +14,7 @@ const $util = require('../util');
 const pool = mysql.createPool($conf.mysql);
 
 module.exports = {
-    add(req, res, next) {
+    add(req, res) {
         pool.getConnection((err, connection) => {
             const body = req.body;
             connection.query($sql.add, [body.person, body.time, body.message], (err, result) => {
@@ -26,7 +26,7 @@ module.exports = {
             connection.release();
         });
     },
-    update(req, res, next) {
+    update(req, res) {
         pool.getConnection((err, connection) => {
             const body = req.body;
             connection.query($sql.update, [body.message, body.id], (err, result) => {
@@ -38,7 +38,7 @@ module.exports = {
             connection.release();
         });
     },
-    delete(req, res, next) {
+    delete(req, res) {
         pool.getConnection((err, connection) => {
             const id = req.params.id;
             connection.query($sql.delete, [id], (err, result) => {
@@ -50,7 +50,7 @@ module.exports = {
             connection.release();
         });
     },
-    getByTime(req, res, next) {
+    getByTime(req, res) {
         pool.getConnection((err, connection) => {
             const time = req.params.time;
             connection.query($sql.getByTime, [time], (err, result) => {
@@ -59,7 +59,7 @@ module.exports = {
             connection.release();
         });
     },
-    getByPerson(req, res, next) {
+    getByPerson(req, res) {
         pool.getConnection((err, connection) => {
             const person = req.params.person;
             connection.query($sql.getByPerson, [person], (err, result) => {
@@ -68,7 +68,7 @@ module.exports = {
             connection.release();
         });
     },
-    list(req, res, next) {
+    list(req, res) {
         pool.getConnection((err, connection) => {
             connection.query($sql.list, (err, result) => {
                 $util.jsonWrite(res, result);

@@ -4,7 +4,6 @@ import 'element-ui/lib/theme-default/index.css';
 import 'normalize.css';
 import ElementUI from 'element-ui';
 import axios from 'axios';
-import jsCookie from 'js-cookie';
 import Vuex from 'vuex';
 import Vue from 'vue';
 import VueLazyload from 'vue-lazyload';
@@ -16,8 +15,6 @@ Vue.prototype.$axios = axios.create({
     baseURL,
     withCredentials: true
 });
-Vue.prototype.$cookie = jsCookie;
-window.cookie = jsCookie;
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);

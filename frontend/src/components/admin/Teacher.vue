@@ -51,13 +51,11 @@
                 </el-form-item>
                 <el-form-item label="类型">
                     <el-select v-model="form.type" placeholder="请选择">
+                        <el-option label="专业导师" value="专业导师"></el-option>
+                        <el-option label="成长导师" value="成长导师"></el-option>
                         <el-option-group label="学生导师">
                             <el-option label="朋辈导师" value="朋辈导师"></el-option>
                             <el-option label="党员导师" value="党员导师"></el-option>
-                        </el-option-group>
-                        <el-option-group label="教师导师">
-                            <el-option label="专业导师" value="专业导师"></el-option>
-                            <el-option label="成长导师" value="成长导师"></el-option>
                         </el-option-group>
                     </el-select>
                 </el-form-item>

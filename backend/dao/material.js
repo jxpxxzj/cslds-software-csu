@@ -13,7 +13,7 @@ const $util = require('../util');
 const pool = mysql.createPool($conf.mysql);
 
 module.exports = {
-    add(req, res, next) {
+    add(req, res) {
         if (!req.session.admin) {
             $util.jsonWrite(res, $util.unauthorized);
             return;
@@ -29,7 +29,7 @@ module.exports = {
             connection.release();
         });
     },
-    delete(req, res, next) {
+    delete(req, res) {
         if (!req.session.admin) {
             $util.jsonWrite(res, $util.unauthorized);
             return;
@@ -45,7 +45,7 @@ module.exports = {
             connection.release();
         });
     },
-    list(req, res, next) {
+    list(req, res) {
         pool.getConnection((err, connection) => {
             connection.query($sql.list, (err, result) => {
                 $util.jsonWrite(res, result);
@@ -53,7 +53,7 @@ module.exports = {
             connection.release();
         });
     },
-    listFile(req, res, next) {
+    listFile(req, res) {
         if (!req.session.admin) {
             $util.jsonWrite(res, $util.unauthorized);
             return;
@@ -62,7 +62,7 @@ module.exports = {
             $util.jsonWrite(res, files);
         });
     },
-    getById(req, res, next) {
+    getById(req, res) {
         pool.getConnection((err, connection) => {
             const id = req.params.id;
             connection.query($sql.getById, [id], (err, result) => {
@@ -71,7 +71,7 @@ module.exports = {
             connection.release();
         });
     },
-    upload(req, res, next) {
+    upload(req, res) {
         if (!req.session.admin) {
             $util.jsonWrite(res, $util.unauthorized);
             return;
@@ -90,7 +90,7 @@ module.exports = {
             });
         });
     },
-    download(req, res, next) {
+    download(req, res) {
         const fileName = req.params.fileName;
         const filePath = './public/file/' + fileName;
         const stats = fs.statSync(filePath);

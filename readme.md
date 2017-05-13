@@ -36,16 +36,15 @@ mysql: {
 ```
 2. 在数据库中执行 `/backend/database.sql`.
 
-### 构建前端
-#### 安装依赖
+### 安装依赖
 在 Terminal 中执行以下命令:
 ```bash
-$ cd frontend
+# 在 repo 根目录执行
 $ npm install
 ```
 等待其安装完毕.
 
-#### 执行构建
+### 构建前端
 在 Terminal 中继续执行以下命令:
 ```bash
 # 确保导航到 /frontend 文件夹
@@ -54,22 +53,13 @@ $ npm run build
 等待构建完成, 可以在 `/dist` 下找到生成的 `/static` 文件夹和 `index.html` 文件.
 
 ### 部署后端
-
-#### 安装依赖
-在 Terminal 中执行以下命令:
-```bash
-$ cd backend
-$ npm install
+#### 部署前端文件
+复制上一步的中构建出的 `/frontend/dist` 文件夹中的全部内容到 `/backend/public` 文件夹, 最终的目录结构类似如下:
 ```
-等待其安装完毕.
-
-#### 部署前端
-复制上一步的中构建出的 `/frontend/dist` 文件夹中的全部内容到 `/backend/public` 文件夹, 并新建 `/backend/file` 文件夹, 最终的目录结构类似如下:
-```
-# 省略了其他目录结构
+# 省略了其他目录结构和文件
 ├── backend/              
     ├── public/
-        ├── file/                      
+        ├── file/           # 运行时自动创建              
         ├── static/
             ├── js/                 
             ├── css/             
@@ -87,7 +77,7 @@ $ npm start
 
 ## 提交说明
 提交前请进行以下工作:
-1. 执行 ESLint 的代码检查工作, `/frontent` 和 `/backend` 都配置了各自的 ESLint 检查文件, 确保修复所有的 Error 和除了 `no-unused-variable` 以外的 Warning.
+1. 执行 ESLint 的代码检查工作(通过 `npm run lint` 完成), `/frontent` 和 `/backend` 都配置了各自的 ESLint 检查文件, 确保修复所有的 Error 和除了 `no-unused-variable` 以外的 Warning.
 2. 配置 `.gitignore` 文件, 检查以下文件是否在提交列表中:
 * 个体差异性开发环境, 包括但不限于 `.idea`, `.vscode`, `.DS_STORE` 等
 * `node_modules` 等需要重新安装的文件

@@ -16,7 +16,7 @@ const $util = require('../util');
 const pool = mysql.createPool($conf.mysql);
 
 module.exports = {
-    isUsernameExist(req, res, next) {
+    isUsernameExist(req, res) {
         pool.getConnection((err, connection) => {
             const username = req.params.username;
             connection.query($sql.isUsernameExist, [username], (err, result) => {
@@ -27,7 +27,7 @@ module.exports = {
             connection.release();
         });
     },
-    register(req, res, next) {
+    register(req, res) {
         pool.getConnection((err, connection) => {
             const body = req.body;
             connection.query($sql.register, [body.username, passwordHash.generate(body.password), body.class, body.number, body.phone, body.qq], (err, result) => {
@@ -39,7 +39,7 @@ module.exports = {
             connection.release();
         });
     },
-    login(req, res, next) {
+    login(req, res) {
         pool.getConnection((err, connection) => {
             const body = req.body;
             connection.query($sql.getByUsername, [body.username], (err, result) => {
@@ -59,7 +59,7 @@ module.exports = {
             connection.release();
         });
     },
-    updateInfo(req, res, next) {
+    updateInfo(req, res) {
         if (req.session.user) {
             pool.getConnection((err, connection) => {
                 const body = req.body;
@@ -79,7 +79,7 @@ module.exports = {
             $util.jsonWrite(res, $util.unauthorized);
         }
     },
-    updatePassword(req, res, next) {
+    updatePassword(req, res) {
         if (req.session.user) {
             pool.getConnection((err, connection) => {
                 const body = req.body;
@@ -95,7 +95,7 @@ module.exports = {
             $util.jsonWrite(res, $util.unauthorized);
         }
     },
-    getByUsername(req, res, next) {
+    getByUsername(req, res) {
         pool.getConnection((err, connection) => {
             const username = req.params.username;
             connection.query($sql.getByUsername, [username], (err, result) => {
@@ -104,7 +104,7 @@ module.exports = {
             connection.release();
         });
     },
-    getById(req, res, next) {
+    getById(req, res) {
         pool.getConnection((err, connection) => {
             const id = req.params.id;
             connection.query($sql.getById, [id], (err, result) => {
