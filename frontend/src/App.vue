@@ -469,6 +469,8 @@ footer
 }
 
 .menu-container{
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     height: 42px;
     background: rgba(238,241,246,0.9);
     box-shadow: rgba(0,0,0,0.1) 0 1px 2px;
@@ -478,14 +480,18 @@ footer
     position: relative;
     z-index: 10;
     font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
-    color: #222;
+}
+.menu-container a:hover {
+    background-color: rgba(238,241,246,0.9);
 }
 .menu-container .nav a {
+    display: inline-block;
     font-size: 14px;
+    line-height: 42px;
+    height: 42px;
     padding-left: 10px;
     padding-right: 10px;
     text-align: center;
-    line-height: 42px;
     position: relative;
 }
 
