@@ -5,4 +5,6 @@ engines:
       config: /backend/.eslintrc.json
       extensions:
       - .js
-      - .vue
+ratings:
+  paths:
+  - "**.js"
