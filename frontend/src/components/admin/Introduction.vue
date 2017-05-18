@@ -27,18 +27,14 @@ export default {
             }
         };
     },
-    created() {
-        this.$axios.get('/introduction/get')
-        .then((response) => {
-            this.form = response.data;
-        });
+    async created() {
+        const response = await this.$axios.get('/introduction/get')
+        this.form = response.data;
     },
     methods: {
-        onSave() {
-            this.$axios.post('/introduction/update', this.form)
-            .then((response) => {
-                Message.caseCode(response.data.code);
-            });
+        async onSave() {
+            const response = await this.$axios.post('/introduction/upsert', this.form)
+            Message.caseCode(response.data.code);
         }
     }
 };

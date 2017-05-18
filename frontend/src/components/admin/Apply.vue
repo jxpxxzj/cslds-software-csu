@@ -4,7 +4,7 @@
             <el-table-column prop="person" label="申请人" width="180"></el-table-column>
             <el-table-column prop="type" label="类型" width="180"></el-table-column>
             <el-table-column prop="detail" label="描述"></el-table-column>
-            <el-table-column prop="time" label="时间" width="180"></el-table-column>
+            <el-table-column prop="createdAt" label="时间" width="180"></el-table-column>
             <el-table-column label="操作" width="100">
                 <template scope="scope">
                     <el-button type="text" size="small" @click="onRowClick(scope.$index, scope.row)">回复</el-button>
@@ -41,25 +41,21 @@ export default {
         this.refresh();
     },
     methods: {
-        refresh() {
-            this.$axios.get('/application/getByState/申请中')
-            .then((response) => {
-                this.apply = response.data;
-                this.dialogVisible = false;
-            });
+        async refresh() {
+            const response = await this.$axios.get('/application/getByState/申请中');
+            this.apply = response.data;
+            this.dialogVisible = false;
         },
         onRowClick(index, row) {
             this.reply = row;
             this.dialogVisible = true;
         },
-        onSubmit() {
-            this.$axios.post('/application/update', this.reply)
-            .then((response) => {
-                if (response.data.code.toString() === '200') {
-                    this.refresh();
-                }
-                Message.caseCode(response.data.code);
-            });
+        async onSubmit() {
+            const response = await this.$axios.post('/application/update', this.reply)
+            if (response.data.code.toString() === '200') {
+                this.refresh();
+            }
+            Message.caseCode(response.data.code);
         }
     }
 };

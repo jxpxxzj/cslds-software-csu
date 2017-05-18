@@ -356,29 +356,24 @@ export default {
                 }
             });
         },
-        onLoginClick() {
-            this.$axios.post('/person/login', this.loginForm)
-            .then((response) => {
-                if (response.data.loginState === 'success') {
-                    this.isLogin = true;
-                    this.$axios.get('/person/getByUsername/' + this.loginForm.username)
-                    .then((response2) => {
-                        this.$store.commit('setUser', response2.data);
-                        this.loginFormVisible = false;
-                        this.$message({
-                            type: 'success',
-                            message: '欢迎回来, ' + response2.data.username,
-                            duration: 1000
-                        });
-                    });
-                } else {
-                    this.$message({
-                        type: 'error',
-                        message: '登录失败, 请检查用户名和密码是否正确',
-                        duration: 1000
-                    });
-                }
-            });
+        async onLoginClick() {
+            const response = await this.$axios.post('/person/login', this.loginForm)
+            if (typeof response.data.code === 'undefined') {
+                this.isLogin = true;
+                this.$store.commit('setUser', response.data);
+                this.loginFormVisible = false;
+                this.$message({
+                    type: 'success',
+                    message: '欢迎回来, ' + response.data.username,
+                    duration: 1000
+                });
+            } else {
+                this.$message({
+                    type: 'error',
+                    message: '登录失败, 请检查用户名和密码是否正确',
+                    duration: 1000
+                });
+            }
         }
     }
 };

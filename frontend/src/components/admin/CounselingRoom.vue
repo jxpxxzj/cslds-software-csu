@@ -49,11 +49,10 @@ export default {
         this.refresh();
     },
     methods: {
-        refresh() {
-            this.$axios.get('/counselingRoom/list')
-            .then((response) => {
-                this.room = response.data;
-            });
+        async refresh() {
+            const response = await this.$axios.get('/counselingRoom/list')
+            this.room = response.data;
+            this.dialogVisible = false;
         },
         onAddClick() {
             this.dialogVisible = true;
@@ -68,14 +67,12 @@ export default {
             this.form = row;
             this.type = 'update';
         },
-        onSubmit() {
-            this.$axios.post('/counselingRoom/' + this.type, this.form)
-            .then((response) => {
-                if (response.data.code.toString() === '200') {
-                    this.refresh();
-                }
-                Message.caseCode(response.data.code);
-            });
+        async onSubmit() {
+            const response = await this.$axios.post('/counselingRoom/' + this.type, this.form)
+            if (response.data.code.toString() === '200') {
+                this.refresh();
+            }
+            Message.caseCode(response.data.code);
         }
     }
 };

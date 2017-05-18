@@ -5,7 +5,11 @@
         <el-table border :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
             <el-table-column prop="type" label="类型" width="180"></el-table-column>
             <el-table-column prop="detail" label="描述"></el-table-column>
-            <el-table-column prop="time" label="时间" width="180"></el-table-column>
+            <el-table-column label="时间" width="180">
+                <template scope="scope">
+                    {{ new Date(scope.row.createdAt).toLocaleString() }}
+                </template>
+            </el-table-column>
             <el-table-column prop="state" label="状态" width="180"></el-table-column>
         </el-table>
         <el-dialog title="申请" v-model="applyFormVisible">
@@ -80,11 +84,9 @@ export default {
     },
     /*eslint-enable*/
     methods: {
-        fetchData() {
-            this.$axios.get('/application/getByPerson/' + this.$store.state.user.username)
-            .then((response) => {
-                this.tableData = response.data;
-            });
+        async fetchData() {
+            const response = await this.$axios.get('/application/getByPerson');
+            this.tableData = response.data;
         },
         tableRowClassName(row) {
             if (row.state === '已阅') {

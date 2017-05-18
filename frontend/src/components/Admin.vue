@@ -16,7 +16,7 @@
         <el-row v-if="isLogin">
             <el-row>
                 <el-radio-group v-model="current" @change="onSwitch">
-                    <el-radio-button v-for="obj in tabList" :label="obj.path">{{ obj.name }}</el-radio-button>
+                    <el-radio-button v-for="obj in tabList" :key="obj.name" :label="obj.path">{{ obj.name }}</el-radio-button>
                 </el-radio-group>
                 <el-row>&nbsp;</el-row>
                 <keep-alive>
@@ -66,24 +66,22 @@ export default {
                 path: '/admin/' + this.current
             });
         },
-        onLoginClick() {
-            this.$axios.post('/admin/login', this.loginForm)
-            .then((response) => {
-                if (response.data.code.toString() === '200') {
-                    this.isLogin = true;
-                    this.onSwitch();
-                } else if (response.data.code.toString() === '401') {
-                    this.$message({
-                        type: 'error',
-                        message: '登录失败, 请检查用户名和密码'
-                    });
-                } else {
-                    this.$message({
-                        type: 'error',
-                        message: '登录失败, 请检查网络'
-                    });
-                }
-            });
+        async onLoginClick() {
+            const response = await this.$axios.post('/admin/login', this.loginForm)
+            if (response.data.code.toString() === '200') {
+                this.isLogin = true;
+                this.onSwitch();
+            } else if (response.data.code.toString() === '401') {
+                this.$message({
+                    type: 'error',
+                    message: '登录失败, 请检查用户名和密码'
+                });
+            } else {
+                this.$message({
+                    type: 'error',
+                    message: '登录失败, 请检查网络'
+                });
+            }
         }
     }
 };
