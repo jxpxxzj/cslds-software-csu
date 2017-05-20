@@ -1,26 +1,10 @@
-const express = require('express');
-const router = express.Router();
+const controller = require('../controllers/teacher');
+const router = require('koa-router')();
 
-const dao = require('../dao/teacher');
-
-router.get('/list', (req, res) => {
-    dao.list(req, res);
-});
-
-router.post('/add', (req, res) => {
-    dao.add(req, res);
-});
-
-router.post('/update', (req, res) => {
-    dao.update(req, res);
-});
-
-router.get('/delete/:id', (req, res) => {
-    dao.delete(req, res);
-});
-
-router.get('/getByType/:type', (req, res) => {
-    dao.getByType(req, res);
-});
+router.post('/add', controller.add);
+router.post('/update', controller.update);
+router.get('/remove/:id', controller.remove);
+router.get('/list', controller.list);
+router.get('/getByType/:type', controller.getByType);
 
 module.exports = router;

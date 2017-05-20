@@ -1,34 +1,10 @@
-const express = require('express');
-const router = express.Router();
+const controller = require('../controllers/person');
+const router = require('koa-router')();
 
-const dao = require('../dao/person');
-
-router.get('/isUsernameExist/:username', (req, res) => {
-    dao.isUsernameExist(req, res);
-});
-
-router.post('/register', (req, res) => {
-    dao.register(req, res);
-});
-
-router.post('/login', (req, res) => {
-    dao.login(req, res);
-});
-
-router.post('/updateInfo', (req, res) => {
-    dao.updateInfo(req, res);
-});
-
-router.post('/updatePassword', (req, res) => {
-    dao.updatePassword(req, res);
-});
-
-router.get('/getByUsername/:username', (req, res) => {
-    dao.getByUsername(req, res);
-});
-
-router.get('/getById/:id', (req, res) => {
-    dao.getById(req, res);
-});
+router.post('/login', controller.login);
+router.post('/register', controller.register);
+router.post('/updateInfo', controller.updateInfo);
+router.post('/updatePassword', controller.updatePassword);
+router.get('/isUsernameExist/:username', controller.isUsernameExist);
 
 module.exports = router;

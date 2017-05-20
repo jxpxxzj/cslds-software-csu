@@ -1,10 +1,7 @@
-const express = require('express');
-const router = express.Router();
+const controller = require('../controllers/admin');
+const router = require('koa-router')();
 
-const dao = require('../dao/admin');
-
-router.post('/login', (req, res) => {
-    dao.login(req, res);
-});
+router.post('/login', controller.login);
+router.get('/logout', controller.logout);
 
 module.exports = router;

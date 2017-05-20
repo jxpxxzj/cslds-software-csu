@@ -1,22 +1,9 @@
-const express = require('express');
-const router = express.Router();
+const controller = require('../controllers/application');
+const router = require('koa-router')();
 
-const dao = require('../dao/application');
-
-router.post('/add', (req, res) => {
-    dao.add(req, res);
-});
-
-router.post('/update', (req, res) => {
-    dao.update(req, res);
-});
-
-router.get('/getByPerson/:person', (req, res) => {
-    dao.getByPerson(req, res);
-});
-
-router.get('/getByState/:state', (req, res) => {
-    dao.getByState(req, res);
-});
+router.post('/add', controller.add);
+router.post('/update', controller.update);
+router.get('/getByPerson', controller.getByPerson);
+router.get('/getByState/:state', controller.getByState);
 
 module.exports = router;

@@ -1,26 +1,8 @@
-const express = require('express');
-const router = express.Router();
+const controller = require('../controllers/counselingRoom');
+const router = require('koa-router')();
 
-const dao = require('../dao/counselingRoom');
-
-router.post('/add', (req, res) => {
-    dao.add(req, res);
-});
-
-router.post('/update', (req, res) => {
-    dao.update(req, res);
-});
-
-router.get('/getByTime/:time', (req, res) => {
-    dao.getByTime(req, res);
-});
-
-router.get('/getByPlace/:place', (req, res) => {
-    dao.getByPlace(req, res);
-});
-
-router.get('/list', (req, res) => {
-    dao.list(req, res);
-});
+router.post('/add', controller.add);
+router.post('/update', controller.update);
+router.get('/list', controller.list);
 
 module.exports = router;

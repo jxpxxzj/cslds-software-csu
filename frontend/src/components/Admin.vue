@@ -46,7 +46,7 @@ export default {
                 name: '学习资料',
                 path: 'material'
             }, {
-                name: '辅导室',
+                name: '自习室',
                 path: 'counselingRoom'
             }, {
                 name: '导师介绍',

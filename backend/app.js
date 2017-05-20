@@ -1,84 +1,113 @@
-const express = require('express');
-const path = require('path');
-const favicon = require('serve-favicon');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const passwordHash = require('password-hash');
-const multer = require('multer');
+const startTime = new Date();
+
+// clea terminal
+process.stdout.write('\x1Bc');
+
+const fs = require('fs-extra');
+const chalk = require('chalk');
+const config = require('./config/config');
+
+const Koa = require('koa');
+const Router = require('koa-router');
+const json = require('koa-json');
+const logger = require('koa-logger');
+const bodyParser = require('koa-bodyparser');
+const conditional = require('koa-conditional-get');
+const etag = require('koa-etag');
+const send = require('koa-send');
+const serve = require('koa-static');
+const session = require('koa-session');
+const multer = require('koa-multer');
+const mount = require('koa-mount');
 const upload = multer({
-    dest: 'public/file/'
+    dest: './public/files/'
+});
+
+const app = new Koa();
+
+// Error handler
+app.use(async (ctx, next) => {
+    try {
+        await next();
+        if (!ctx.status || ctx.status === 404) {
+            ctx.throw(404);
+        }
+    } catch (err) {
+        console.log('Server error:', chalk.red(err));
+        ctx.status = parseInt(err.status) || 500;
+        switch (ctx.status) {
+        case 404:
+            await send(ctx, 'public/404.html');
+            break;
+        case 400:
+            break;
+        case 500:
+        default:
+            await send(ctx, 'public/500.html');
+            break;
+        }
+    }
+});
+
+// E-Tag
+app.use(conditional());
+app.use(etag({
+    weak: true
+}));
+
+app.use(async (ctx, next) => {
+    ctx.set('X-Powered-By', 'Koa');
+    await next();
+});
+
+app.use(upload.single('file'));
+app.use(bodyParser());
+app.use(json());
+app.use(logger());
+app.keys = [config.server.sessionKey];
+app.use(session({
+    key: config.server.sessionKey,
+    httpOnly: true,
+    signed: true,
+    maxAge: 86400000,
+    overwrite: true
+}, app));
+
+// Router
+const router = new Router({
+    prefix: '/api'
 });
 
 const introduction = require('./routes/introduction');
-const course = require('./routes/course');
-const material = require('./routes/material');
-const counselingRoom = require('./routes/counselingRoom');
-const admin = require('./routes/admin');
-const communication = require('./routes/communication');
-const application = require('./routes/application');
-const activity = require('./routes/activity');
 const person = require('./routes/person');
+const material = require('./routes/material');
+const admin = require('./routes/admin');
+const application = require('./routes/application');
+const counselingRoom = require('./routes/counselingRoom');
+const course = require('./routes/course');
+const activity = require('./routes/activity');
 const teacher = require('./routes/teacher');
+router.use('/introduction', introduction.routes());
+router.use('/person', person.routes());
+router.use('/material', material.routes());
+router.use('/admin', admin.routes());
+router.use('/application', application.routes());
+router.use('/counselingRoom', counselingRoom.routes());
+router.use('/course', course.routes());
+router.use('/activity', activity.routes());
+router.use('/teacher', teacher.routes());
+app.use(router.routes());
 
-const $util = require('./util');
+// Static file
+app.use(mount('/api/material/download', serve(__dirname + '/public/files')));
+app.use(mount('/', serve(__dirname + '/public')));
 
-const app = express();
-
-app.use(favicon(path.join(__dirname, 'resources', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(cookieParser());
-app.use(session({
-    secret: passwordHash.generate(Math.random().toString()),
-    cookie: {
-        maxAge: 60 * 60 * 1000
-    },
-    saveUninitialized: false,
-    resave: false
-}));
-app.use(upload.single('file'));
-
-app.use(bodyParser.json({
-    limit: '50mb'
-}));
-app.use(bodyParser.urlencoded({
-    limit: '50mb',
-    extended: false
-}));
-
-app.use('/introduction', introduction);
-app.use('/course', course);
-app.use('/material', material);
-app.use('/counselingRoom', counselingRoom);
-app.use('/admin', admin);
-app.use('/communication', communication);
-app.use('/application', application);
-app.use('/activity', activity);
-app.use('/person', person);
-app.use('/teacher', teacher);
-
-app.use('/static', express.static(__dirname + '/public/static'));
-app.use('/', express.static(__dirname + '/public'));
-
-app.use(function(req, res, next) {
-    const err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-app.use(function(err, req, res) {
-    console.log(err);
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {
-
-    };
-    if (err.status === 404) {
-        res.sendFile(path.join(__dirname, 'resources', '404.html'));
-        return;
-    }
-    res.status(err.status || 500);
-    $util.jsonWrite(res);
+// Startup
+app.listen('3000', async () => {
+    await fs.copy('./resources/404.html', './public/404.html');
+    await fs.copy('./resources/favicon.ico', './public/favicon.ico');
+    console.log(chalk.green('Koa is listening on 3000...'));
+    console.log(chalk.blue('Start time:', startTime.toLocaleString()));
 });
 
 module.exports = app;
