@@ -1,6 +1,6 @@
 const startTime = new Date();
 
-// clea terminal
+// clear terminal
 process.stdout.write('\x1Bc');
 
 const fs = require('fs-extra');
@@ -37,13 +37,13 @@ app.use(async (ctx, next) => {
         ctx.status = parseInt(err.status) || 500;
         switch (ctx.status) {
         case 404:
-            await send(ctx, 'public/404.html');
+            await send(ctx, './public/404.html');
             break;
         case 400:
             break;
         case 500:
         default:
-            await send(ctx, 'public/500.html');
+            await send(ctx, './public/500.html');
             break;
         }
     }

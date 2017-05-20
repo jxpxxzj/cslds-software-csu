@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const semver = require('semver');
-const packageConfig = require('../package.json');
+const packageConfig = require('../../package.json');
 const childProcess = require('child_process');
 
 function exec(cmd) {
