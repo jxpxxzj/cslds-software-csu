@@ -4,7 +4,11 @@
             <el-table-column prop="person" label="申请人" width="180"></el-table-column>
             <el-table-column prop="type" label="类型" width="180"></el-table-column>
             <el-table-column prop="detail" label="描述"></el-table-column>
-            <el-table-column prop="createdAt" label="时间" width="180"></el-table-column>
+            <el-table-column label="时间" width="180">
+                <template scope="scope">
+                    {{ new Date(scope.createdAt).toLocaleString() }}
+                </template>
+            </el-table-column>
             <el-table-column label="操作" width="100">
                 <template scope="scope">
                     <el-button type="text" size="small" @click="onRowClick(scope.$index, scope.row)">回复</el-button>

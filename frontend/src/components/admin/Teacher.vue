@@ -138,23 +138,19 @@ export default {
             this.form = row;
             this.type = 'update';
         },
-        onRowDelete(index, row) {
-            this.$axios.get('/teacher/delete/' + row.id)
-            .then((response) => {
-                if (response.data.code.toString() === '200') {
-                    this.refresh();
-                }
-                Message.caseCode(response.data.code);
-            });
+        async onRowDelete(index, row) {
+            const response = await this.$axios.get('/teacher/remove/' + row.id);
+            if (response.data.code.toString() === '200') {
+                this.refresh();
+            }
+            Message.caseCode(response.data.code);
         },
-        onSubmit() {
-            this.$axios.post('/teacher/' + this.type, this.form)
-            .then((response) => {
-                if (response.data.code.toString() === '200') {
-                    this.refresh();
-                }
-                Message.caseCode(response.data.code);
-            });
+        async onSubmit() {
+            const response = await this.$axios.post('/teacher/' + this.type, this.form);
+            if (response.data.code.toString() === '200') {
+                this.refresh();
+            }
+            Message.caseCode(response.data.code);
         }
     }
 };

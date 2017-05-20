@@ -13,7 +13,7 @@ export default {
         Vue.prototype.$message({
             type: 'error',
             message: '操作失败, 请检查登录状态',
-            duration: 1000,
+            duration: 2000,
             showClose: true
         });
     },
@@ -21,7 +21,7 @@ export default {
         Vue.prototype.$message({
             type: 'error',
             message: '操作失败, 请检查网络',
-            duration: 1000,
+            duration: 2000,
             showClose: true
         });
     },

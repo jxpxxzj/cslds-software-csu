@@ -82,6 +82,13 @@ export default {
         }
         this.fetchData();
     },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            if(vm.$store.state.user.username === undefined) {
+                vm.$router.push('/');
+            } 
+        });
+    },
     /*eslint-enable*/
     methods: {
         async fetchData() {
@@ -97,30 +104,28 @@ export default {
         onApplyClick() {
             this.applyFormVisible = true;
         },
-        onSubmitClick() {
-            this.$refs.applyForm.validate((valid) => {
+        async onSubmitClick() {
+            this.$refs.applyForm.validate(async (valid) => {
                 if (valid) {
-                    this.$axios.post('/application/add', this.apply)
-                    .then((response) => {
-                        if (response.data.code.toString() === '200') {
-                            this.$message({
-                                type: 'success',
-                                message: '提交成功, 请等待审核',
-                                duration: 1000
-                            });
-                            this.fetchData();
-                            this.applyFormVisible = false;
-                            this.apply.detail = '';
-                        } else {
-                            this.$message({
-                                type: 'error',
-                                message: '提交失败, 请检查是否登录'
-                            });
-                            this.$router.push({
-                                path: '/'
-                            });
-                        }
-                    });
+                    const response = await this.$axios.post('/application/add', this.apply);
+                    if (response.data.code.toString() === '200') {
+                        this.$message({
+                            type: 'success',
+                            message: '提交成功, 请等待审核',
+                            duration: 1000
+                        });
+                        this.fetchData();
+                        this.applyFormVisible = false;
+                        this.apply.detail = '';
+                    } else {
+                        this.$message({
+                            type: 'error',
+                            message: '提交失败, 请检查是否登录'
+                        });
+                        this.$router.push({
+                            path: '/'
+                        });
+                    }
                 } else {
                     this.$message({
                         type: 'warning',

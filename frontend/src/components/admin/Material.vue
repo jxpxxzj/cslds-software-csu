@@ -26,7 +26,7 @@
                     <el-table-column label="文件名" prop="address"></el-table-column>
                     <el-table-column width="180" label="操作">
                         <template scope="scope">
-                            <el-button type="text" size="small">下载</el-button>
+                            <el-button type="text" size="small" @click="downloadMaterial(scope.$index, scope.row)">下载</el-button>
                             <el-button type="text" size="small" @click="deleteMaterial(scope.$index, scope.row)">删除</el-button>
                         </template>
                     </el-table-column>
@@ -68,18 +68,14 @@ export default {
         this.refreshFileList();
     },
     methods: {
-        refresh() {
-            this.$axios.get('/material/list')
-                .then((response) => {
-                    this.material = response.data;
-                    this.dialogVisible = false;
-                });
+        async refresh() {
+            const response = await this.$axios.get('/material/list');
+            this.material = response.data;
+            this.dialogVisible = false;
         },
-        refreshFileList() {
-            this.$axios.get('/material/listFile')
-            .then((response) => {
-                this.fileList = response.data;
-            });
+        async refreshFileList() {
+            const response = await this.$axios.get('/material/listFile');
+            this.fileList = response.data;
         },
         publishFile(index, row) {
             this.dialogVisible = true;
@@ -88,23 +84,22 @@ export default {
                 address: row
             };
         },
-        onSubmit() {
-            this.$axios.post('/material/add', this.form)
-            .then((response) => {
-                if (response.data.code.toString() === '200') {
-                    this.refresh();
-                }
-                Message.caseCode(response.data.code);
-            });
+        async onSubmit() {
+            const response = await this.$axios.post('/material/add', this.form);
+            if (response.data.code.toString() === '200') {
+                this.refresh();
+            }
+            Message.caseCode(response.data.code);
         },
-        deleteMaterial(index, row) {
-            this.$axios.get('/material/delete/' + row.id)
-            .then((response) => {
-                if (response.data.code.toString() === '200') {
-                    this.refresh();
-                }
-                Message.caseCode(response.data.code);
-            });
+        async deleteMaterial(index, row) {
+            const response = await this.$axios.get('/material/remove/' + row.id);
+            if (response.data.code.toString() === '200') {
+                this.refresh();
+            }
+            Message.caseCode(response.data.code);
+        },
+        downloadMaterial(index, row) {
+            window.location.href = this.baseURL + '/material/download/' + row.address;
         }
     }
 };

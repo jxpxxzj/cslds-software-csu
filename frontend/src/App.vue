@@ -280,27 +280,25 @@ export default {
             this.settingForm.user = this.$store.state.user;
             this.settingFormVisible = true;
         },
-        onSaveInfoClick() {
-            this.$refs.settingFormUser.validate((valid) => {
+        async onSaveInfoClick() {
+            this.$refs.settingFormUser.validate(async (valid) => {
                 if (valid) {
-                    this.$axios.post('/person/updateInfo', this.settingForm.user)
-                    .then((response) => {
-                        if (response.data.code.toString() === '200') {
-                            this.settingFormVisible = false;
-                            this.$message({
-                                type: 'success',
-                                message: '修改成功',
-                                duration: 1000
-                            });
-                            this.$store.commit('setUser', this.settingForm.user);
-                        } else {
-                            this.$message({
-                                type: 'warning',
-                                message: '修改失败, 请检查是否有字段填写错误',
-                                duration: 1000
-                            });
-                        }
-                    });
+                    const response = await this.$axios.post('/person/updateInfo', this.settingForm.user)
+                    if (response.data.code.toString() === '200') {
+                        this.settingFormVisible = false;
+                        this.$message({
+                            type: 'success',
+                            message: '修改成功',
+                            duration: 1000
+                        });
+                        this.$store.commit('setUser', this.settingForm.user);
+                    } else {
+                        this.$message({
+                            type: 'warning',
+                            message: '修改失败, 请检查是否有字段填写错误',
+                            duration: 1000
+                        });
+                    }
                 } else {
                     this.$message({
                         type: 'error',
@@ -310,49 +308,45 @@ export default {
                 }
             });
         },
-        onSavePasswordClick() {
-            this.$axios.post('/person/updatePassword', this.settingForm.password)
-            .then((response) => {
-                if (response.data.code.toString() === '200') {
-                    this.settingFormVisible = false;
-                    this.$message({
-                        type: 'success',
-                        message: '修改成功',
-                        duration: 1000
-                    });
-                } else {
-                    this.$message({
-                        type: 'error',
-                        message: '修改失败, 请检查原密码是否正确',
-                        duration: 1000
-                    });
-                }
-            });
+        async onSavePasswordClick() {
+            const response = await this.$axios.post('/person/updatePassword', this.settingForm.password);
+            if (response.data.code.toString() === '200') {
+                this.settingFormVisible = false;
+                this.$message({
+                    type: 'success',
+                    message: '修改成功',
+                    duration: 1000
+                });
+            } else {
+                this.$message({
+                    type: 'error',
+                    message: '修改失败, 请检查原密码是否正确',
+                    duration: 1000
+                });
+            }
         },
-        onRegisterClick() {
-            this.$refs.registerForm.validate((valid) => {
+        async onRegisterClick() {
+            this.$refs.registerForm.validate(async (valid) => {
                 if (valid) {
-                    this.$axios.post('/person/register', this.registerForm)
-                    .then((response) => {
-                        if (response.data.code.toString() === '200') {
-                            this.loginFormVisible = false;
-                            this.$message({
-                                type: 'success',
-                                message: '注册成功',
-                                duration: 1000
-                            });
-                            this.registerForm = {
+                    const response = await this.$axios.post('/person/register', this.registerForm)
+                    if (response.data.code.toString() === '200') {
+                        this.loginFormVisible = false;
+                        this.$message({
+                            type: 'success',
+                            message: '注册成功',
+                            duration: 1000
+                        });
+                        this.registerForm = {
 
-                            };
-                            this.tabSelected = 'login';
-                        } else {
-                            this.$message({
-                                type: 'error',
-                                message: '注册失败, 请检查网络',
-                                duration: 1000
-                            });
-                        }
-                    });
+                        };
+                        this.tabSelected = 'login';
+                    } else {
+                        this.$message({
+                            type: 'error',
+                            message: '注册失败, 请检查网络',
+                            duration: 1000
+                        });
+                    }
                 }
             });
         },

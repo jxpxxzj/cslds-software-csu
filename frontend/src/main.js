@@ -9,11 +9,18 @@ import Vue from 'vue';
 import VueLazyload from 'vue-lazyload';
 import App from './App';
 import router from './router';
+import Message from './lib/message';
 
 const baseURL = '/api';
 Vue.prototype.$axios = axios.create({
     baseURL,
-    withCredentials: true
+    withCredentials: true,
+    validateStatus(status) {
+        if (status === 401) {
+            Message.Unauthorized();
+        }
+        return status >= 200 && status < 400;
+    }
 });
 
 Vue.config.productionTip = false;

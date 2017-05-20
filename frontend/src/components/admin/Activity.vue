@@ -61,12 +61,10 @@ export default {
         this.refresh();
     },
     methods: {
-        refresh() {
-            this.$axios.get('/activity/list')
-            .then((response) => {
-                this.activity = response.data;
-                this.dialogVisible = false;
-            });
+        async refresh() {
+            const response = await this.$axios.get('/activity/list');
+            this.activity = response.data;
+            this.dialogVisible = false;
         },
         onAddClick() {
             this.dialogVisible = true;
@@ -88,26 +86,22 @@ export default {
                 this.$refs.upload.clearFiles();
             }
         },
-        onRowDelete(index, row) {
-            this.$axios.get('/activity/delete/' + row.id)
-            .then((response) => {
-                if (response.data.code.toString() === '200') {
-                    this.refresh();
-                }
-                Message.caseCode(response.data.code)();
-            });
+        async onRowDelete(index, row) {
+            const response = await this.$axios.get('/activity/remove/' + row.id);
+            if (response.data.code.toString() === '200') {
+                this.refresh();
+            }
+            Message.caseCode(response.data.code)();
         },
-        onSubmit() {
-            this.$axios.post('/activity/' + this.type, this.form)
-            .then((response) => {
-                if (response.data.code.toString() === '200') {
-                    this.refresh();
-                }
-                Message.caseCode(response.data.code);
-            });
+        async onSubmit() {
+            const response = await this.$axios.post('/activity/' + this.type, this.form);
+            if (response.data.code.toString() === '200') {
+                this.refresh();
+            }
+            Message.caseCode(response.data.code);
         },
         onUploadSuccess(response) {
-            this.form.address = '/file/' + response.path;
+            this.form.address = this.baseURL + '/material/download/' + response.path;
         }
     }
 };

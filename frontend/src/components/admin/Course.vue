@@ -54,12 +54,10 @@ export default {
         this.refresh();
     },
     methods: {
-        refresh() {
-            this.$axios.get('/course/list')
-            .then((response) => {
-                this.course = response.data;
-                this.dialogVisible = false;
-            });
+        async refresh() {
+            const response = await this.$axios.get('/course/list');
+            this.course = response.data;
+            this.dialogVisible = false;
         },
         onAddClick() {
             this.dialogVisible = true;
@@ -75,14 +73,12 @@ export default {
             this.form = row;
             this.type = 'update';
         },
-        onSubmit() {
-            this.$axios.post('/course/' + this.type, this.form)
-            .then((response) => {
-                if (response.data.code.toString() === '200') {
-                    this.refresh();
-                }
-                Message.caseCode(response.data.code);
-            });
+        async onSubmit() {
+            const response = await this.$axios.post('/course/' + this.type, this.form);
+            if (response.data.code.toString() === '200') {
+                this.refresh();
+            }
+            Message.caseCode(response.data.code);
         }
     }
 };

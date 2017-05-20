@@ -132,12 +132,10 @@ export default {
         this.fetchData();
     },
     methods: {
-        fetchData() {
-            this.$axios.get('/teacher/getByType/' + this.currentType)
-            .then((response) => {
-                this.teacher = response.data;
-                this.current = this.teacher[0];
-            });
+        async fetchData() {
+            const response = await this.$axios.get('/teacher/getByType/' + this.currentType)
+            this.teacher = response.data;
+            this.current = this.teacher[0];
         },
         onSelect(index) {
             this.currentType = index;

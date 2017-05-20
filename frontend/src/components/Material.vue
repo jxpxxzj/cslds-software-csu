@@ -4,7 +4,7 @@
             <el-table-column label="标题" prop="title"></el-table-column>
             <el-table-column width="80" label="操作">
                 <template scope="scope">
-                    <a :href="'/file/' + scope.row.address">下载</a>
+                    <a :href="baseURL + '/material/download/' + scope.row.address">下载</a>
                 </template>
             </el-table-column>
         </el-table>
@@ -19,11 +19,9 @@ export default {
             material: []
         };
     },
-    created() {
-        this.$axios.get('/material/list')
-        .then((response) => {
-            this.material = response.data;
-        });
+    async created() {
+        const response = await this.$axios.get('/material/list');
+        this.material = response.data;
     }
 };
 </script>
