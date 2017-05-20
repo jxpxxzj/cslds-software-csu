@@ -16,7 +16,8 @@
     "build": "cd frontend && node build/build.js",
     "lint": "eslint --ext .js,.vue ./frontend/src,./backend --ignore-path .eslintignore",
     "start": "cd backend && node app",
-    "setup": "npm install && node build/setup"
+    "setup": "npm install && node build/setup",
+    "sync": "node -e 'require(\"./build/sync\")()'"
   },
   "dependencies": {
     "axios": "^0.16.1",

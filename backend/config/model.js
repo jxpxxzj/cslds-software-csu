@@ -10,7 +10,7 @@ const seq = new Sequelize(config.mysql.database, config.mysql.user, config.mysql
 seq.import('../models/activity');
 seq.import('../models/admin');
 seq.import('../models/application');
-seq.import('../models/counselingroom');
+seq.import('../models/counselingRoom');
 seq.import('../models/course');
 seq.import('../models/introduction');
 seq.import('../models/material');

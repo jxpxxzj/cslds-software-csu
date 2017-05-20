@@ -10,8 +10,9 @@
 ## 运行环境
 Node.js >= 7.6.0 或使用 --harmony
 
-## 构建说明
-执行以下命令, 按提示完成初始化.
+## 部署说明
+### 初始化
+在 Terminal 中执行 `npm run setup`, 按提示完成初始化.
 ``` bash
 $ npm run setup
 
@@ -26,18 +27,28 @@ Setup Script
 ? Initial admin account                             # 初始管理员账号
 ? Initial admin password                            # 初始管理员密码
 ? Build now?                                        # 是否立即执行构建
-? Force sync model with database now?               # 是否立即与数据库强制同步模型
+? Force sync model with database now?               # 是否立即强制与数据库同步模型, 会清空现有数据
 ? Start server now?                                 # 是否立即开始运行
 ```
-配置文件会生成到 `/backend/config/config.json`, 可以使用文本编辑器进行编辑.
+配置文件会保存到 `/backend/config/config.json`, 可以使用文本编辑器进行编辑.
 
-#### 启动服务器
+### 启动服务器
 在 Terminal 中执行以下命令:
 ```bash
 # 确保导航到 /backend 文件夹
 $ npm start
 ```
 服务器便会开始运行, 访问 `http://localhost:设置的端口号` 即可看到页面.
+
+## 指令列表
+``` bash
+$ npm run dev               # 启动前端开发环境
+$ npm run build             # 构建前端
+$ npm run lint              # 执行 ESLint 检查
+$ npm start                 # 启动服务器
+$ npm run setup             # 执行初始化脚本
+$ npm run sync              # 强制与数据库同步模型, 会清空现有数据
+```
 
 ## 提交说明
 提交前请进行以下工作:

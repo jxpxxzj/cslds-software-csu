@@ -7,13 +7,16 @@ module.exports = async (account, password) => {
     await seq.sync({
         force: true
     });
-    await seq.models.admin.upsert({
-        account,
-        password: passwordHash.generate(password)
-    });
+    if(account !== undefined && password !== undefined) { // call function by node -e
+        await seq.models.admin.upsert({
+            account,
+            password: passwordHash.generate(password)
+        });
+    }
     await seq.models.introduction.upsert({
         introduction: '',
         constitution: '',
         rule: ''
     });
+    return;
 };
