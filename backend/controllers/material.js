@@ -1,8 +1,6 @@
 const service = require('../services/material');
 const util = require('../util');
 const fs = require('fs-extra');
-const path = require('path');
-const send = require('koa-send');
 
 async function add(ctx) {
     if (!ctx.session.admin) {

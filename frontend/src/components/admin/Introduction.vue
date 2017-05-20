@@ -28,12 +28,12 @@ export default {
         };
     },
     async created() {
-        const response = await this.$axios.get('/introduction/get')
+        const response = await this.$axios.get('/introduction/get');
         this.form = response.data;
     },
     methods: {
         async onSave() {
-            const response = await this.$axios.post('/introduction/upsert', this.form)
+            const response = await this.$axios.post('/introduction/upsert', this.form);
             Message.caseCode(response.data.code);
         }
     }

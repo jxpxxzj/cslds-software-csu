@@ -117,12 +117,10 @@ export default {
         this.refresh();
     },
     methods: {
-        refresh() {
-            this.$axios.get('/teacher/list')
-            .then((response) => {
-                this.teacher = response.data;
-                this.dialogVisible = false;
-            });
+        async refresh() {
+            const response = await this.$axios.get('/teacher/list');
+            this.teacher = response.data;
+            this.dialogVisible = false;
         },
         onAddClick() {
             this.dialogVisible = true;

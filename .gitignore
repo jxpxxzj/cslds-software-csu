@@ -9,6 +9,6 @@ jspm_packages/
 .npm/
 .node_repl_history/
 yarn-error.log
-backend/conf/config.js
+backend/config/config.js
 
 

@@ -50,7 +50,7 @@ export default {
     },
     methods: {
         async refresh() {
-            const response = await this.$axios.get('/counselingRoom/list')
+            const response = await this.$axios.get('/counselingRoom/list');
             this.room = response.data;
             this.dialogVisible = false;
         },
@@ -68,7 +68,7 @@ export default {
             this.type = 'update';
         },
         async onSubmit() {
-            const response = await this.$axios.post('/counselingRoom/' + this.type, this.form)
+            const response = await this.$axios.post('/counselingRoom/' + this.type, this.form);
             if (response.data.code.toString() === '200') {
                 this.refresh();
             }

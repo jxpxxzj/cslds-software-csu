@@ -133,7 +133,7 @@ export default {
     },
     methods: {
         async fetchData() {
-            const response = await this.$axios.get('/teacher/getByType/' + this.currentType)
+            const response = await this.$axios.get('/teacher/getByType/' + this.currentType);
             this.teacher = response.data;
             this.current = this.teacher[0];
         },

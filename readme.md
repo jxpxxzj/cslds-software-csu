@@ -7,34 +7,37 @@
 [![GitHub issues](https://img.shields.io/github/issues/jxpxxzj/cslds-software-csu.svg)](https://github.com/jxpxxzj/cslds-software-csu/issues)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jxpxxzj/cslds-software-csu/master/LICENSE)
 
-## 构建说明
-### 修改代码
-#### 配置服务器地址
-打开 `/frontend/src/main.js`, 修改以下代码:
-```js
-const baseURL = '/api'; // 修改这行为将要部署的后端地址
-Vue.prototype.$axios = axios.create({
-    baseURL,
-    withCredentials: true
-});
-```
-在 `/frontend/config/index.js` 中配置了开发环境下的路由表和 URL 重写.
+## 运行环境
+Node.js >= 7.6.0 或使用 --harmony
 
-#### 配置数据库
-1. 打开 `/backend/conf/config.example.js`, 复制一份为 `config.js`, 并修改以下代码:
+## 构建说明
+### 修改配置
+打开 `/backend/config/config.example.js`, 复制一份为 `config.js`, 并修改以下代码:
 ```js
 server: {
-    port: '3000' // 监听端口
+    port: '3000',                                             // 监听端口
+    sessionKey: 'cslds-software-csu'                          // session key
 },
 mysql: {
-    host: 'localhost', // 数据库地址
-    user: 'root', // 数据库用户名
-    password: '', // 数据库密码
-    database: 'xf', // 数据库名
-    port: 3306 // 数据库端口
+    host: 'localhost',                                        // 数据库地址
+    user: 'root',                                             // 用户名
+    password: '',                                             // 密码
+    database: 'xf',                                           // 数据库名
+    port: 3306                                                // 端口
+},
+init: {
+    force: process.env.npm_config_forceSync || false,         // 是否强制执行 Sync 操作
+    admin: {
+        account: 'admin',                                     // 初始管理员账号
+        password: 'admin'                                     // 初始管理员密码
+    },
+    introduction: {
+        introduction: 'introduction',                         // 中心简介
+        constitution: 'constitution',                         // 章程
+        rule: 'rule'                                          // 规章制度
+    }
 }
 ```
-2. 在数据库中执行 `/backend/database.sql`.
 
 ### 安装依赖
 在 Terminal 中执行以下命令:
@@ -59,7 +62,7 @@ $ npm run build
 # 省略了其他目录结构和文件
 ├── backend/              
     ├── public/
-        ├── file/           # 运行时自动创建              
+        ├── files/           # 运行时自动创建              
         ├── static/
             ├── js/                 
             ├── css/             
@@ -71,6 +74,7 @@ $ npm run build
 在 Terminal 中执行以下命令:
 ```bash
 # 确保导航到 /backend 文件夹
+# 第一次执行时请添加 --forceSync 参数以更新数据库结构和添加默认数据
 $ npm start
 ```
 服务器便会开始运行, 访问 `http://localhost:设置的端口号` 即可看到页面.
@@ -82,7 +86,7 @@ $ npm start
 * 个体差异性开发环境, 包括但不限于 `.idea`, `.vscode`, `.DS_STORE` 等
 * `node_modules` 等需要重新安装的文件
 * `npm_debug.log`, `yarn_error.log` 等调试文件
-* `/backend/conf/config.js` 等配置文件
+* `/backend/config/config.js` 等配置文件
 * `/frontend/dist`, `/backend/public` 等已构建后的文件
 3. 对所有文件进行一次 diff 检查, 确保提交的代码正确.
 

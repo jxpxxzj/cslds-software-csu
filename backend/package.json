@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "node app",
-    "lint": "eslint --ext .js ./"
+    "lint": "eslint --ext .js ./ --ignore-path .eslintignore"
   },
   "dependencies": {
     "fs-extra": "^3.0.1",
@@ -33,6 +33,10 @@
     "mysql2": "^1.2.0",
     "password-hash": "^1.2.2",
     "sequelize": "^3.30.4"
+  },
+  "engines": {
+    "node": ">= 7.6.0",
+    "npm": ">= 4.0.0"
   },
   "devDependencies": {
     "chalk": "^1.1.3",

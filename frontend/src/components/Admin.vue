@@ -67,7 +67,7 @@ export default {
             });
         },
         async onLoginClick() {
-            const response = await this.$axios.post('/admin/login', this.loginForm)
+            const response = await this.$axios.post('/admin/login', this.loginForm);
             if (response.data.code.toString() === '200') {
                 this.isLogin = true;
                 this.onSwitch();

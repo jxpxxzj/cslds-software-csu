@@ -55,7 +55,7 @@ export default {
             this.dialogVisible = true;
         },
         async onSubmit() {
-            const response = await this.$axios.post('/application/update', this.reply)
+            const response = await this.$axios.post('/application/update', this.reply);
             if (response.data.code.toString() === '200') {
                 this.refresh();
             }

@@ -283,7 +283,7 @@ export default {
         async onSaveInfoClick() {
             this.$refs.settingFormUser.validate(async (valid) => {
                 if (valid) {
-                    const response = await this.$axios.post('/person/updateInfo', this.settingForm.user)
+                    const response = await this.$axios.post('/person/updateInfo', this.settingForm.user);
                     if (response.data.code.toString() === '200') {
                         this.settingFormVisible = false;
                         this.$message({
@@ -328,7 +328,7 @@ export default {
         async onRegisterClick() {
             this.$refs.registerForm.validate(async (valid) => {
                 if (valid) {
-                    const response = await this.$axios.post('/person/register', this.registerForm)
+                    const response = await this.$axios.post('/person/register', this.registerForm);
                     if (response.data.code.toString() === '200') {
                         this.loginFormVisible = false;
                         this.$message({
@@ -351,7 +351,7 @@ export default {
             });
         },
         async onLoginClick() {
-            const response = await this.$axios.post('/person/login', this.loginForm)
+            const response = await this.$axios.post('/person/login', this.loginForm);
             if (typeof response.data.code === 'undefined') {
                 this.isLogin = true;
                 this.$store.commit('setUser', response.data);
