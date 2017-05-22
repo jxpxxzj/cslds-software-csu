@@ -6,6 +6,8 @@ import Admin from '@/components/Admin';
 import Material from '@/components/Material';
 import Teacher from '@/components/Teacher';
 import NotFound from '@/components/NotFound';
+import Report from '@/components/Report';
+import Research from '@/components/Research';
 
 // Admin
 import Introduction from '@/components/admin/Introduction';
@@ -15,6 +17,8 @@ import Apply from '@/components/admin/Apply';
 import adminMaterial from '@/components/admin/Material';
 import CounselingRoom from '@/components/admin/CounselingRoom';
 import adminTeacher from '@/components/admin/Teacher';
+import adminResearch from '@/components/admin/Research';
+import adminReport from '@/components/admin/Report';
 
 Vue.use(Router);
 
@@ -50,6 +54,12 @@ export default new Router({
         }, {
             path: 'teacher',
             component: adminTeacher
+        }, {
+            path: 'research',
+            component: adminResearch
+        }, {
+            path: 'report',
+            component: adminReport
         }]
     }, {
         path: '/material',
@@ -57,6 +67,12 @@ export default new Router({
     }, {
         path: '/teacher',
         component: Teacher
+    }, {
+        path: '/research',
+        component: Research
+    }, {
+        path: '/report',
+        component: Report
     }, {
         path: '*',
         component: NotFound

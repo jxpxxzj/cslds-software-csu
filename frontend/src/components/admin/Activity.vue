@@ -4,7 +4,7 @@
         <el-row>&nbsp;</el-row>
         <el-table stripe border :data="activity" style="width: 100%">
             <el-table-column prop="title" label="标题"></el-table-column>
-            <el-table-column prop="address" label="下载地址">
+            <el-table-column prop="address" label="文件">
                 <template scope="scope">
                     <a :href="scope.row.address">{{ scope.row.address.split('_').slice(1).join('_') }}</a>
                 </template>

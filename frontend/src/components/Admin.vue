@@ -51,6 +51,12 @@ export default {
             }, {
                 name: '导师介绍',
                 path: 'teacher'
+            }, {
+                name: '调研报告',
+                path: 'research',
+            }, {
+                name: '工作简报',
+                path: 'report'
             }],
             loginForm: {
                 account: '',

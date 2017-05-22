@@ -6,6 +6,8 @@
                     <router-link :to="{ path: '/'}">首页</router-link>
                     <router-link :to="{ path: '/material' }">学习资料</router-link>
                     <router-link :to="{ path: '/teacher' }">导师介绍</router-link>
+                    <router-link :to="{ path: '/research' }">调研报告</router-link>
+                    <router-link :to="{ path: '/report' }">工作简报</router-link>
                 </div>
                 <div class="right" v-if="!this.isLogin">
                     <a href="javascript:void(0);" @click="onLogin">登录 / 注册</a>

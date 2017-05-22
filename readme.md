@@ -35,7 +35,6 @@ Setup Script
 ### 启动服务器
 在 Terminal 中执行以下命令:
 ```bash
-# 确保导航到 /backend 文件夹
 $ npm start
 ```
 服务器便会开始运行, 访问 `http://localhost:设置的端口号` 即可看到页面.
