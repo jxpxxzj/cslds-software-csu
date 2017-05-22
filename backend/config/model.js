@@ -16,6 +16,8 @@ seq.import('../models/introduction');
 seq.import('../models/material');
 seq.import('../models/person');
 seq.import('../models/teacher');
+seq.import('../models/research');
+seq.import('../models/report');
 
 seq.sync();
 seq.authenticate();

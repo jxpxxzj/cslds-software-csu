@@ -1,13 +1,19 @@
 <template>
     <div>
-        <el-table stripe border :data="material" style="width:100%">
+        <el-button type="primary" @click="onAddClick">添加</el-button>
+        <el-row>&nbsp;</el-row>
+        <el-table stripe border :data="research" style="width:100%">
             <el-table-column label="标题" prop="title"></el-table-column>
             <el-table-column label="文件">
                 <template scope="scope">
-                    <a :href="scope.row.address">{{ scope.row.address.split('_').slice(1).join('_') }}</a>
+                    <a :href="scope.row.address" download="">{{ scope.row.address.split('_').slice(1).join('_') }}</a>
                 </template>
             </el-table-column>
-            <el-table-column label="发布日期" prop="updatedAt"></el-table-column>
+            <el-table-column label="发布日期">
+                <template scope="scope">
+                    {{ new Date(scope.row.updatedAt).toLocaleString() }}
+                </template>
+            </el-table-column>
             <el-table-column width="180" label="操作">
                 <template scope="scope">
                     <el-button type="text" size="small" @click="rowClick(scope.$index, scope.row)">编辑</el-button>
@@ -15,7 +21,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-dialog title="活动编辑" v-model="dialogVisible">
+        <el-dialog title="内容编辑" v-model="dialogVisible">
             <el-form :model="form">
                 <el-form-item label="标题">
                     <el-input v-model="form.title" auto-complete="off"></el-input>
@@ -44,16 +50,25 @@ export default {
                 address: ''
             },
             dialogVisible: false,
-            type: add
-        }
+            type: 'add'
+        };
     },
     created() {
-
+        this.refresh();
     },
     methods: {
+        onAddClick() {
+            this.type = 'add';
+            this.form = {
+                title: '',
+                address: ''
+            };
+            this.dialogVisible = true;
+        },
         async refresh() {
             const response = await this.$axios.get('/research/list');
             this.research = response.data;
+            this.dialogVisible = false;
         },
         rowClick(index, row) {
             this.type = 'update';
@@ -65,8 +80,7 @@ export default {
         },
         async deleteR(index, row) {
             const response = await this.$axios.get('/research/delete/' + row.id);
-            const result = response.data;
-            if(response.data.code.toString() === '200') {
+            if (response.data.code.toString() === '200') {
                 this.refresh();
             }
             Message.caseCode(response.data.code);
@@ -77,7 +91,10 @@ export default {
                 this.refresh();
             }
             Message.caseCode(response.data.code);
+        },
+        onUploadSuccess(response) {
+            this.form.address = this.baseURL + '/material/download/' + response.path;
         }
     }
-}
+};
 </script>

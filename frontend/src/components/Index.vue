@@ -32,7 +32,7 @@
                             <span style="line-height: 36px;">活动通告</span>
                         </div>
                         <div class="text item" v-for="obj in act" :key="obj.id">
-                            <a :href="obj.address">{{ obj.title }}</a>  <el-tag style="float: right">{{ new Date(obj.date).toLocaleDateString() }}</el-tag> 
+                            <a :href="obj.address" download="">{{ obj.title }}</a>  <el-tag style="float: right">{{ new Date(obj.date).toLocaleDateString() }}</el-tag> 
                         </div>
                     </el-card>
                 </el-row>

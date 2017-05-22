@@ -10,5 +10,9 @@ module.exports = {
     error: {
         code: 500,
         message: 'Internal Server Error'
+    },
+    notFound: {
+        code: 404,
+        message: 'Not Found'
     }
 };

@@ -122,6 +122,7 @@ module.exports = {
         "avoidQuotes": true,
         "avoidExplicitReturnArrows": true
     }],
+    "linebreak-style": "off",
     "prefer-spread": "error",
     "require-yield": "error",
     "rest-spread-spacing": ["error", "never"],

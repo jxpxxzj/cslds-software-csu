@@ -6,6 +6,7 @@ process.stdout.write('\x1Bc');
 const fs = require('fs-extra');
 const chalk = require('chalk');
 const config = require('./config/config');
+const util = require('./util');
 
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -35,16 +36,27 @@ app.use(async (ctx, next) => {
     } catch (err) {
         console.log('Server error:', chalk.red(err));
         ctx.status = parseInt(err.status) || 500;
-        switch (ctx.status) {
-        case 404:
-            await send(ctx, './public/404.html');
-            break;
-        case 400:
-            break;
-        case 500:
-        default:
-            await send(ctx, './public/500.html');
-            break;
+        if (ctx.request.header.accept.indexOf('application/json') === -1) { // browser request
+            switch (ctx.status) {
+            case 404:
+                await send(ctx, './public/404.html');
+                break;
+            case 400:
+                break;
+            case 500:
+            default:
+                await send(ctx, './public/500.html');
+                break;
+            }
+        } else {
+            switch (ctx.status) {
+            case 404:
+                ctx.body = util.notFound;
+                break;
+            default:
+                ctx.body = util.error;
+                break;
+            }
         }
     }
 });
@@ -87,6 +99,8 @@ const counselingRoom = require('./routes/counselingRoom');
 const course = require('./routes/course');
 const activity = require('./routes/activity');
 const teacher = require('./routes/teacher');
+const research = require('./routes/research');
+const report = require('./routes/report');
 router.use('/introduction', introduction.routes());
 router.use('/person', person.routes());
 router.use('/material', material.routes());
@@ -96,6 +110,8 @@ router.use('/counselingRoom', counselingRoom.routes());
 router.use('/course', course.routes());
 router.use('/activity', activity.routes());
 router.use('/teacher', teacher.routes());
+router.use('/research', research.routes());
+router.use('/report', report.routes());
 app.use(router.routes());
 
 // Static file
@@ -104,8 +120,6 @@ app.use(mount('/', serve(__dirname + '/public')));
 
 // Startup
 app.listen('3000', async () => {
-    await fs.copy('./resources/404.html', './public/404.html');
-    await fs.copy('./resources/favicon.ico', './public/favicon.ico');
     console.log(chalk.green('Koa is listening on 3000...'));
     console.log(chalk.blue('Start time:', startTime.toLocaleString()));
 });

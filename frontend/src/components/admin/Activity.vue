@@ -6,7 +6,7 @@
             <el-table-column prop="title" label="标题"></el-table-column>
             <el-table-column prop="address" label="文件">
                 <template scope="scope">
-                    <a :href="scope.row.address">{{ scope.row.address.split('_').slice(1).join('_') }}</a>
+                    <a :href="scope.row.address" download="">{{ scope.row.address.split('_').slice(1).join('_') }}</a>
                 </template>
             </el-table-column>
             <el-table-column label="日期" width="180">
