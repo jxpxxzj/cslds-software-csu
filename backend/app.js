@@ -22,6 +22,7 @@ const mount = require('koa-mount');
 const upload = multer({
     dest: './public/files/'
 });
+const history = require('koa-connect-history-api-fallback');
 
 const app = new Koa();
 
@@ -36,17 +37,7 @@ app.use(async (ctx, next) => {
         console.log('Server error:', chalk.red(err));
         ctx.status = parseInt(err.status) || 500;
         if (ctx.request.header.accept.indexOf('application/json') === -1) { // browser request
-            switch (ctx.status) {
-            case 404:
-                await send(ctx, './public/404.html');
-                break;
-            case 400:
-                break;
-            case 500:
-            default:
-                await send(ctx, './public/500.html');
-                break;
-            }
+            await send(ctx, './public/404.html');
         } else {
             switch (ctx.status) {
             case 404:
@@ -59,6 +50,8 @@ app.use(async (ctx, next) => {
         }
     }
 });
+
+app.use(history());
 
 // E-Tag
 app.use(conditional());
