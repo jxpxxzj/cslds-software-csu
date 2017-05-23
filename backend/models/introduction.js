@@ -7,15 +7,15 @@ module.exports = (seq, Sequelize) => seq.define('introduction', {
         allowNull: false
     },
     introduction: {
-        type: Sequelize.TEXT,
+        type: Sequelize.TEXT('long'),
         allowNull: false
     },
     constitution: {
-        type: Sequelize.TEXT,
+        type: Sequelize.TEXT('long'),
         allowNull: false
     },
     rule: {
-        type: Sequelize.TEXT,
+        type: Sequelize.TEXT('long'),
         allowNull: false
     }
 }, {

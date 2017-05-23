@@ -1,3 +1,5 @@
-const config = require('./config');
+const fs = require('fs-extra');
+const path = require('path');
+const json = fs.readJSONSync(path.resolve(__dirname, './config.json'));
 
-module.exports = config.server;
+module.exports = json;

@@ -28,8 +28,25 @@ const config = {
 process.stdout.write('\x1Bc');
 console.log(chalk.bgBlue('Setup Script'));
 
-const questions = [
-    {
+(async () => {
+    const isExist = await fs.pathExists(path.resolve(__dirname, '../backend/config/config.json'));
+    if (isExist) { // config.json is existed
+        const rm = await inquirer.prompt({
+            type: 'confirm',
+            message: 'config.json is existed, delete it? If you choose no, setup script will load it.',
+            name: 'cfm',
+            default: false
+        });
+        if (rm) { // delete file
+            fs.remove('./backend/config/config.json');
+        } else {
+            const cfg = await fs.readJSON('./backend/config/config.json');
+            config.mysql = cfg.mysql;
+            config.server = cfg.server;
+        }
+    }
+
+    const questions = [{
         type: 'input',
         name: 'server.port',
         message: 'Server port:',
@@ -56,7 +73,7 @@ const questions = [
         default: config.mysql.user
     }, {
         type: 'password',
-        name: 'mysql.password:',
+        name: 'mysql.password',
         message: 'MySQL password:',
         default: config.mysql.password
     }, {
@@ -74,26 +91,7 @@ const questions = [
         name: 'admin.password',
         message: 'Initial admin password:',
         default: config.admin.password
-    }
-];
-
-(async () => {
-    const isExist = await fs.pathExists(path.resolve(__dirname, '../backend/config/config.json'));
-    if (isExist) { // config.json is existed
-        const rm = await inquirer.prompt({
-            type: 'confirm',
-            message: 'config.json is existed, delete it? If you choose no, setup script will load it.',
-            name: 'cfm',
-            default: false
-        });
-        if (rm) { // delete file
-            fs.remove('./backend/config/config.json');
-        } else {
-            const cfg = await fs.readJSON('./backend/config/config.json');
-            config.mysql = cfg.mysql;
-            config.server = cfg.server;
-        }
-    }
+    }];
 
     const answers = await inquirer.prompt(questions);
     await fs.writeJSON('./backend/config/config.json', {
@@ -132,6 +130,7 @@ const questions = [
         await run();
     } else {
         console.log(chalk.green('Setup complete. use "npm start" to start server.'));
+        process.exit(0);
         return;
     }
 })();
