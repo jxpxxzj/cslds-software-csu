@@ -56,10 +56,32 @@ async function getByType(ctx) {
     ctx.body = result;
 }
 
+async function getDesc(ctx) {
+    const result = await service.getDesc();
+    ctx.status = util.success.code;
+    ctx.body = result;
+}
+
+async function updateDesc(ctx) {
+    const body = ctx.request.body;
+    if (ctx.session.admin) {
+        const result = await service.updateDesc(body.text);
+        if (result) {
+            ctx.status = util.success.code;
+            ctx.body = util.success;
+        }
+    } else {
+        ctx.status = util.unauthorize.code;
+        ctx.body = util.unauthorize;
+    }
+}
+
 module.exports = {
     add,
     update,
     list,
     remove,
-    getByType
+    getByType,
+    getDesc,
+    updateDesc
 };

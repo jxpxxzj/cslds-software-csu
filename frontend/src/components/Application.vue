@@ -48,19 +48,19 @@ export default {
             typeList: [
                 {
                     name: '辅导室使用申请',
-                    description: 'test1'
+                    description: '用于班级或者团队活动，如：开班会等'
                 }, {
                     name: '个人自习申请',
-                    description: 'test2'
+                    description: '申请空教室用于自习'
                 }, {
                     name: '个人一对一辅导申请',
-                    description: 'test3'
+                    description: '学业有困难，上课跟不上的或者渴望学习高深知识的同学可以申请（请在申请描述中说明具体情况）'
                 }, {
                     name: '课程辅导申请',
-                    description: 'test4'
+                    description: '用于集体补课，或者考前复习'
                 }, {
                     name: '发展辅导申请',
-                    description: 'test5'
+                    description: '分为竞赛辅导申请和职业规划辅导申请（请在申请描述中说明具体情况）'
                 }
             ],
             applyFormVisible: false

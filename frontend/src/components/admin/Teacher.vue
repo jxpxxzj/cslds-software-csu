@@ -1,6 +1,7 @@
 <template>
     <div>
         <el-button type="primary" @click="onAddClick">添加</el-button>
+        <el-button type="primary" @click="descVisible = true">编辑在线咨询</el-button>
         <el-row>&nbsp;</el-row>
         <el-table stripe border :data="teacher" style="width: 100%">
             <el-table-column type="expand">
@@ -76,6 +77,16 @@
                 <el-button type="primary" @click="onSubmit">提交</el-button>
             </div>
         </el-dialog>
+        <el-dialog title="在线咨询编辑" v-model="descVisible">
+            <el-form :model="desc">
+                <el-form-item label="文本">
+                    <el-input v-model="desc.text" auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="onDescSubmit">提交</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <style scoped>
@@ -99,6 +110,7 @@ export default {
     data() {
         return {
             dialogVisible: false,
+            descVisible: false,
             type: 'add',
             teacher: [],
             form: {
@@ -110,6 +122,9 @@ export default {
                 phone: '',
                 subject: '',
                 achievement: ''
+            },
+            desc: {
+                text: ''
             }
         };
     },
@@ -147,6 +162,13 @@ export default {
             const response = await this.$axios.post('/teacher/' + this.type, this.form);
             if (response.data.code.toString() === '200') {
                 this.refresh();
+            }
+            Message.caseCode(response.data.code);
+        },
+        async onDescSubmit() {
+            const response = await this.$axios.post('/teacher/updateDesc', this.desc);
+            if (response.data.code.toString() === '200') {
+                this.descVisible = false;
             }
             Message.caseCode(response.data.code);
         }

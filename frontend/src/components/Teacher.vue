@@ -6,8 +6,8 @@
                     <el-menu-item index="专业导师">专业导师</el-menu-item>
                     <el-menu-item index="成长导师">成长导师</el-menu-item>
                     <el-menu-item-group title="学生导师">
-                        <el-menu-item index="朋辈导师">朋辈导师</el-menu-item>
-                        <el-menu-item index="党员导师">党员导师</el-menu-item>
+                        <el-menu-item index="朋辈导师" style="padding-left:30px;">朋辈导师</el-menu-item>
+                        <el-menu-item index="党员导师" style="padding-left:30px;">党员导师</el-menu-item>
                     </el-menu-item-group>    
                 </el-menu>
                 <el-row>&nbsp;</el-row>
@@ -99,7 +99,7 @@
         </el-row>
         <el-dialog title="在线咨询" v-model="onlineVisible">
             <p>
-                Some content here.
+                {{ desc.text }}
             </p>
         </el-dialog>
     </div>
@@ -125,11 +125,14 @@ export default {
             current: {
 
             },
-            onlineVisible: false
+            onlineVisible: false,
+            desc: ''
         };
     },
-    created() {
+    async created() {
         this.fetchData();
+        const response2 = await this.$axios.get('/teacher/getDesc');
+        this.desc = response2.data;
     },
     methods: {
         async fetchData() {

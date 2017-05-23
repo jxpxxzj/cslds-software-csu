@@ -1,4 +1,6 @@
 const model = require('../models').teacher;
+const fs = require('fs-extra');
+const path = require('path');
 
 /**
  * Add a new teacher.
@@ -77,10 +79,36 @@ async function getByType(type) {
     });
 }
 
+/**
+ * Get more-info description.
+ * @returns {Promise<MoreInfoDescription>}
+ */
+async function getDesc() {
+    /*eslint-disable*/
+    const result = await fs.readJSON(path.resolve(__dirname, '../config/teacher.json')) || { text: '' };
+    /*eslint-enable*/
+    return result;
+}
+
+/**
+ * Update more-info description.
+ * @param {string} text Description text
+ * @returns {Promise<boolean>}
+ */
+async function updateDesc(text) {
+    await fs.ensureFile(path.resolve(__dirname, '../config/teacher.json'));
+    await fs.outputJSON(path.resolve(__dirname, '../config/teacher.json'), {
+        text
+    });
+    return true;
+}
+
 module.exports = {
     add,
     update,
     list,
     remove,
-    getByType
+    getByType,
+    getDesc,
+    updateDesc
 };

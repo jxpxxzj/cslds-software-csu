@@ -37,7 +37,7 @@ console.log(chalk.bgBlue('Setup Script'));
             name: 'cfm',
             default: false
         });
-        if (rm) { // delete file
+        if (rm.cfm) { // delete file
             fs.remove('./backend/config/config.json');
         } else {
             const cfg = await fs.readJSON('./backend/config/config.json');
@@ -81,7 +81,8 @@ console.log(chalk.bgBlue('Setup Script'));
         name: 'mysql.database',
         message: 'Application database:',
         default: config.mysql.database
-    }, {
+    }];
+    const adminQ = [{
         type: 'input',
         name: 'admin.account',
         message: 'Initial admin account:',
@@ -100,6 +101,18 @@ console.log(chalk.bgBlue('Setup Script'));
     }, {
         spaces: 4
     });
+
+    const setAdmin = await inquirer.prompt({
+        type: 'confirm',
+        message: 'Set admin account?',
+        name: 'sa',
+        default: false
+    });
+    let adminAnswers;
+    if (setAdmin.sa) { // set admin account
+        adminAnswers = await inquirer.prompt(adminQ);
+    }
+
     const buildNow = await inquirer.prompt({
         type: 'confirm',
         message: 'Build now?',
@@ -112,12 +125,17 @@ console.log(chalk.bgBlue('Setup Script'));
     }
     const syncNow = await inquirer.prompt({
         type: 'confirm',
-        message: 'Force sync model with database now?',
+        message: chalk.bgRed('Warning') + ' Force sync model with database now?',
         name: 'syncNow',
         default: false
     });
     if (syncNow.syncNow) {
-        await sync(answers.admin.account, answers.admin.password);
+        if(adminAnswers !== undefined) {
+            await sync(adminAnswers.account, adminAnswers.password);
+        } else {
+            await sync();
+        }
+        
     }
 
     const runNow = await inquirer.prompt({

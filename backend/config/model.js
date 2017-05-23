@@ -19,6 +19,11 @@ seq.import('../models/teacher');
 seq.import('../models/research');
 seq.import('../models/report');
 
-seq.sync().then(seq.authenticate);
+seq.sync();
+try {
+    seq.authenticate();
+} catch (e) {
+    console.log('e');
+}
 
 module.exports = seq;
