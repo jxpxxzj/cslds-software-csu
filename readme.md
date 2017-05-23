@@ -14,6 +14,7 @@ Node.js >= 7.6.0 或使用 --harmony
 ### 初始化
 在 Terminal 中执行 `npm run setup`, 按提示完成初始化.
 ``` bash
+$ npm install
 $ npm run setup
 
 Setup Script

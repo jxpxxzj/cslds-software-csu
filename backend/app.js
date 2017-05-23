@@ -3,7 +3,6 @@ const startTime = new Date();
 // clear terminal
 process.stdout.write('\x1Bc');
 
-const fs = require('fs-extra');
 const chalk = require('chalk');
 const config = require('./config/config');
 const util = require('./util');
@@ -67,6 +66,7 @@ app.use(etag({
     weak: true
 }));
 
+// →_→
 app.use(async (ctx, next) => {
     ctx.set('X-Powered-By', 'Koa');
     await next();
